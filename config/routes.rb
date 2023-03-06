@@ -5,4 +5,20 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  resources :tournaments
+    resources :participations, only: [:create]
+    collection do
+      get :my_tournaments
+      get :fixture
+    end
+
+  resources :participations, only: [:delete] do
+    member do
+      get :payment
+      get :confirmation
+    end
+
+    collection do
+      get :my_participations
+    end
 end
