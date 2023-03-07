@@ -1,1 +1,5 @@
 <%= @tournaments %>
+<% @tournaments.each do |tournament| %>
+<%= tournament.name %>
+<% end %>
+<%= link_to "New tournament", new_tournament_path %>
