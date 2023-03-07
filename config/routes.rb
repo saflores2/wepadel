@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :participations, only: [:create]
     collection do
       get :my_tournaments
+    end
+    member do
       get :fixture
     end
   end
