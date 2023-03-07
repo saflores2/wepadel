@@ -167,4 +167,24 @@ ubications5.save
 
 puts "Creating Tournaments"
 
-Tournament1 = Tournament.create!(name: "Champions League", description: "Torneo de padel. Fase de Grupos", date: "2021-10-10", ubication: "Club de Padel RedPadel", user: user1)
+tournament1 = tournament.create!(name: "Champions League", description: "Fase de Grupos", ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751", user_id: user1.id, ubication_id: ubications1.id, price: 10000, start_date: 2023-03-24, end_date: 2023-03-26, duration: 3, type: "Champions League", gender: "Mixto", min_matches: 3, max_matches: 5, place: 16, match_duration: 1, awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
+
+file = URI.open("https://www.lapadel.com/wp-content/uploads/2016/10/P-EMO_01.jpg")
+tournament1.photo.attach(io: file, filename: "t1.png", content_type: "image/png")
+tournament1.save
+
+
+
+tournament2 = tournament.create!(name: "Americano", description: "Todos contra Todos", ubication_name: "Alto Padel", ubication_address: "Avenida Las Condes 11755", user_id: user2.id, ubication_id: ubications2.id, price: 8000, start_date: 2023-03-31, end_date: 2023-03-31, duration: 1, type: "Americano", gender: "Femenino", min_matches: 2, max_matches: 8, place: 16, match_duration: 20, awards: "Dinero en Efectivo", other: "Inscrpicion Hasta el 29 de Marzo")
+
+file = URI.open("https://canariasnoticias.es/sites/default/files/2018/03/canchas_de_padel21.jpg")
+tournament2.photo.attach(io: file, filename: "t2.png", content_type: "image/png")
+tournament2.save
+
+tournament3 = tournament.create!(name: "Express", description: "Eliminacion Directa", ubication_name: "Pasco Club", ubication_address: "El Aguilucho 3308", user_id: user3.id, ubication_id: ubications5.id, price: 8000, start_date: 2023-04-07, end_date: 2023-04-07, duration: 1, type: "Express", gender: "Mixto", min_matches: 3, max_matches: 3, place: 4, match_duration: 1, awards: "Trofeo", other: "Inscrpicion Hasta el 05 de Abril")
+
+file = URI.open("https://i.pinimg.com/originals/90/ca/50/90ca500c7219727670904935c8f0fbfa.jpg")
+tournament3.photo.attach(io: file, filename: "t3.png", content_type: "image/png")
+tournament3.save
+
+
