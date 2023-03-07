@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_034845) do
     t.string "partner_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
     t.index ["partner_id"], name: "index_participations_on_partner_id"
     t.index ["tournament_id"], name: "index_participations_on_tournament_id"
     t.index ["user_id"], name: "index_participations_on_user_id"
@@ -56,7 +57,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_034845) do
 
   create_table "tournaments", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "ubication_id", null: false
     t.string "name"
     t.datetime "start_date"
     t.datetime "end_date"
@@ -66,7 +66,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_034845) do
     t.string "gender"
     t.integer "min_matches"
     t.integer "max_matches"
-    t.integer "place"
     t.float "match_duration"
     t.string "awards"
     t.string "other"
@@ -98,6 +97,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_034845) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "last_name"
+    t.string "phone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -107,6 +109,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_034845) do
   add_foreign_key "participations", "tournaments"
   add_foreign_key "participations", "users"
   add_foreign_key "participations", "users", column: "partner_id"
-  add_foreign_key "tournaments", "ubications"
   add_foreign_key "tournaments", "users"
 end

@@ -2,7 +2,6 @@ require "open-uri"
 
 if Rails.env.development?
  puts "Deleting data"
- Ubication.destroy_all
  Tournament.destroy_all
  Participation.destroy_all
  User.destroy_all
@@ -59,7 +58,7 @@ user8.photo.attach(io: archivo8, filename: "laura.png", content_type: "image/png
 user8.save
 puts "#{user8.name} creado exitosamente"
 
-use9 = User.create!(name: "Carla", last_name:"García", email: "carla.garcia@gmail.com", password: "123456", phone: "911223344")
+user9 = User.create!(name: "Carla", last_name:"García", email: "carla.garcia@gmail.com", password: "123456", phone: "911223344")
 archivo9 = URI.open("https://tse3.mm.bing.net/th/id/OIP.tStooT58hVyoqmeg9nKnaQHaE7?pid=ImgDet&rs=1")
 user9.photo.attach(io: archivo9, filename: "carla.png", content_type: "image/png")
 user9.save
@@ -113,7 +112,7 @@ user17.photo.attach(io: file, filename: "fdo.png", content_type: "image/png")
 user17.save
 puts "#{user17.name} created successfully"
 
-user18 = User.create!(name: "Marcelo", last_name: "Rios", email: "marcelo@gmail.com", password: "123456", phone: "911223344")
+user18 = User.create!(name: "Marcelo", last_name: "Rios", email: "marcelor@gmail.com", password: "123456", phone: "911223344")
 file = URI.open("https://avatars.githubusercontent.com/u/108149366?v=4")
 user18.photo.attach(io: file, filename: "fdo.png", content_type: "image/png")
 user18.save
@@ -132,42 +131,10 @@ user10.save
 puts "#{user10.name} created successfully"
 
 
-puts "Creating Ubications"
-
-ubications1 = ubications.create!(ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751")
-
-file = URI.open("https://www.lapadel.com/wp-content/uploads/2016/10/P-EMO_01.jpg")
-ubications1.photo.attach(io: file, filename: "c1.png", content_type: "image/png")
-ubications1.save
-
-ubications2 = ubications.create!(name: "Alto Padel", address: "Avenida Las Condes 11755")
-
-file = URI.open("https://canariasnoticias.es/sites/default/files/2018/03/canchas_de_padel21.jpg")
-ubicationst2.photo.attach(io: file, filename: "c2.png", content_type: "image/png")
-ubications2.save
-
-ubications3 = ubications.create!(name: "Padel Cerro Colorado", address: "Cerro Colorado 466")
-
-file = URI.open("https://qlife.com/wp-content/uploads/2021/08/wpt-mejor-set-pista-de-padel-1024x745-1-860x745.jpg")
-ubications3.photo.attach(io: file, filename: "c3.png", content_type: "image/png")
-ubications3.save
-
-ubications4 = ubications.create!(name: "Glass Padel Deportes", address: "Av. Kennedy 9351")
-
-file = URI.open("https://padelworldpress.es/wp-content/uploads/2016/04/pista-padel.jpg")
-ubications4.photo.attach(io: file, filename: "c4.png", content_type: "image/png")
-ubications4.save
-
-ubications5 = ubications.create!(name: "Pasco Club", address: "El Aguilucho 3308")
-
-file = URI.open("https://i.pinimg.com/originals/90/ca/50/90ca500c7219727670904935c8f0fbfa.jpg")
-ubications5.photo.attach(io: file, filename: "c5.png", content_type: "image/png")
-ubications5.save
-
 
 puts "Creating Tournaments"
 
-tournament1 = tournament.create!(name: "Champions League", description: "Fase de Grupos", ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751", user_id: user1.id, ubication_id: ubications1.id, price: 10000, start_date: 2023-03-24, end_date: 2023-03-26, duration: 3, type: "Champions League", gender: "Mixto", min_matches: 3, max_matches: 5, place: 16, match_duration: 1, awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
+tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751", user_id: user1.id, price: 10000, start_date: 2023-03-24, end_date: 2023-03-26, duration: 3, type: "Champions League", gender: "Mixto", min_matches: 3, max_matches: 5, places: 16, match_duration: 1, awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
 
 file = URI.open("https://www.lapadel.com/wp-content/uploads/2016/10/P-EMO_01.jpg")
 tournament1.photo.attach(io: file, filename: "t1.png", content_type: "image/png")
@@ -175,16 +142,16 @@ tournament1.save
 
 
 
-tournament2 = tournament.create!(name: "Americano", description: "Todos contra Todos", ubication_name: "Alto Padel", ubication_address: "Avenida Las Condes 11755", user_id: user2.id, ubication_id: ubications2.id, price: 8000, start_date: 2023-03-31, end_date: 2023-03-31, duration: 1, type: "Americano", gender: "Femenino", min_matches: 2, max_matches: 8, place: 16, match_duration: 20, awards: "Dinero en Efectivo", other: "Inscrpicion Hasta el 29 de Marzo")
+tournament2 = Tournament.create!(name: "Americano", ubication_name: "Alto Padel", ubication_address: "Avenida Las Condes 11755", user_id: user2.id, price: 8000, start_date: 2023-03-31, end_date: 2023-03-31, duration: 1, type: "Americano", gender: "Femenino", min_matches: 2, max_matches: 8, places: 16, match_duration: 20, awards: "Dinero en Efectivo", other: "Inscrpicion Hasta el 29 de Marzo")
 
 file = URI.open("https://canariasnoticias.es/sites/default/files/2018/03/canchas_de_padel21.jpg")
 tournament2.photo.attach(io: file, filename: "t2.png", content_type: "image/png")
 tournament2.save
 
-tournament3 = tournament.create!(name: "Express", description: "Eliminacion Directa", ubication_name: "Pasco Club", ubication_address: "El Aguilucho 3308", user_id: user3.id, ubication_id: ubications5.id, price: 8000, start_date: 2023-04-07, end_date: 2023-04-07, duration: 1, type: "Express", gender: "Mixto", min_matches: 3, max_matches: 3, place: 4, match_duration: 1, awards: "Trofeo", other: "Inscrpicion Hasta el 05 de Abril")
+tournament3 = Tournament.create!(name: "Express", ubication_name: "Pasco Club", ubication_address: "El Aguilucho 3308", user_id: user3.id, price: 8000, start_date: 2023-04-07, end_date: 2023-04-07, duration: 1, type: "Express", gender: "Mixto", min_matches: 3, max_matches: 3, places: 4, match_duration: 1, awards: "Trofeo", other: "Inscrpicion Hasta el 05 de Abril")
 
 file = URI.open("https://i.pinimg.com/originals/90/ca/50/90ca500c7219727670904935c8f0fbfa.jpg")
 tournament3.photo.attach(io: file, filename: "t3.png", content_type: "image/png")
 tournament3.save
 
-
+puts "Torneos Creados"
