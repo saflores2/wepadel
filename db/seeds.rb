@@ -167,3 +167,4 @@ ubications5.save
 
 puts "Creating Tournaments"
 
+Tournament1 = Tournament.create!(name: "Champions League", description: "Torneo de padel. Fase de Grupos", date: "2021-10-10", ubication: "Club de Padel RedPadel", user: user1)
