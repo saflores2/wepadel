@@ -1,1 +1,46 @@
 <%= @tournament %>
+<br>
+<%= @tournament.name %>
+<br>
+<%= @tournament.price %>
+<br>
+<%= @tournament.ubication_name %>
+<br>
+<%= @tournament.ubication_address %>
+<br>
+<%= @tournament.start_date %>
+<br>
+<%= @tournament.duration %>
+<br>
+<%= @tournament.end_date %>
+<br>
+<%= @tournament.type %>
+<br>
+<%= @tournament.gender %>
+<br>
+<%= @tournament.category %>
+<br>
+<%= @tournament.min_matches %>
+<br>
+<%= @tournament.max_matches %>
+<br>
+<%= @tournament.places %>
+<br>
+<%= @tournament.match_duration %>
+<br>
+<%= @tournament.awards %>
+<br>
+<%= @tournament.other %>
+<br>
+<%= link_to "Back to tournaments", tournaments_path %>
+<br>
+<%= link_to "Fixture", fixture_tournament_path(@tournament.id)%>
+<br>
+<% if @tournament.user == current_user %>
+  <%= link_to "Edit tournament", edit_tournament_path(@tournament.id)%>
+  <br>
+  <%= link_to "Delete",
+    tournament_path(@tournament),
+    data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}
+  %>
+<% end  %>
