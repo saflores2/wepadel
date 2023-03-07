@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_220132) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_07_023310) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,7 +57,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_220132) do
 
   create_table "tournaments", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "ubication_id", null: false
     t.string "name"
     t.datetime "start_date"
     t.datetime "end_date"
@@ -67,13 +66,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_220132) do
     t.string "gender"
     t.integer "min_matches"
     t.integer "max_matches"
-    t.integer "place"
     t.float "match_duration"
     t.string "awards"
     t.string "other"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ubication_id"], name: "index_tournaments_on_ubication_id"
+    t.integer "places"
+    t.string "ubication_name"
+    t.string "ubication_address"
+    t.float "lat"
+    t.float "lng"
     t.index ["user_id"], name: "index_tournaments_on_user_id"
   end
 
@@ -106,6 +108,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_220132) do
   add_foreign_key "participations", "tournaments"
   add_foreign_key "participations", "users"
   add_foreign_key "participations", "users", column: "partner_id"
-  add_foreign_key "tournaments", "ubications"
   add_foreign_key "tournaments", "users"
 end
