@@ -18,7 +18,7 @@ user2 = User.create!(name: "Enrique", last_name:"Noriega ", email: "Enrique@gmai
 archivo2 = URI.open("https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg")
 user2.photo.attach(io: archivo2, filename: "enrrique.png", content_type: "image/png")
 user2.save
-puts "#{user1.name} creado exitosamente"
+puts "#{user2.name} creado exitosamente"
 
 user3 = User.create!(name: "Ana", last_name:"García", email: "AnaGarcia@gmail.com", password: "123456", phone: "911223344")
 archivo3 = URI.open("https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg")
@@ -122,27 +122,27 @@ user19.photo.attach(io: file, filename: "fdo.png", content_type: "image/png")
 user19.save
 puts "#{user19.name} created successfully"
 
-user10 = User.create!(name: "Gonzalo", last_name: "Martinez", email: "gonzalo@gmail.com", password: "123456", phone: "911223344")
+user20 = User.create!(name: "Gonzalo", last_name: "Martinez", email: "gonzalo@gmail.com", password: "123456", phone: "911223344")
 file = URI.open("https://avatars.githubusercontent.com/u/108149366?v=4")
-user10.photo.attach(io: file, filename: "fdo.png", content_type: "image/png")
-user10.save
-puts "#{user10.name} created successfully"
+user20.photo.attach(io: file, filename: "fdo.png", content_type: "image/png")
+user20.save
+puts "#{user20.name} created successfully"
 
 puts "Creating Tournaments"
 
-tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751", user_id: user1.id, price: 10000, start_date: 2023-03-24, end_date: 2023-03-26, duration: 3, type: "Champions League", gender: "Mixto", min_matches: 3, max_matches: 5, places: 16, match_duration: 1, awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
+tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751", user_id: user1.id, price: 10000, start_date: "2023-03-24", end_date: "2023-03-26", duration: "3 horas", type: "Champions League", category: "Mixto A", min_matches: 3, max_matches: 5, places: 16, available_places: 16, match_duration: "1 hora", awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
 
 file = URI.open("https://www.lapadel.com/wp-content/uploads/2016/10/P-EMO_01.jpg")
 tournament1.photo.attach(io: file, filename: "t1.png", content_type: "image/png")
 tournament1.save
 
-tournament2 = Tournament.create!(name: "Americano", ubication_name: "Alto Padel", ubication_address: "Avenida Las Condes 11755", user_id: user2.id, price: 8000, start_date: 2023-03-31, end_date: 2023-03-31, duration: 1, type: "Americano", gender: "Femenino", min_matches: 2, max_matches: 8, places: 16, match_duration: 20, awards: "Dinero en Efectivo", other: "Inscrpicion Hasta el 29 de Marzo")
+tournament2 = Tournament.create!(name: "Americano", ubication_name: "Alto Padel", ubication_address: "Avenida Las Condes 11755", user_id: user2.id, price: 8000, start_date: "2023-03-31", end_date: "2023-03-31", duration: "1 hora", type: "Americano", category: "Femenino B", min_matches: 2, max_matches: 8, places: 16, available_places: 16, match_duration: "20 minutos", awards: "Dinero en Efectivo", other: "Inscrpicion Hasta el 29 de Marzo")
 
 file = URI.open("https://canariasnoticias.es/sites/default/files/2018/03/canchas_de_padel21.jpg")
 tournament2.photo.attach(io: file, filename: "t2.png", content_type: "image/png")
 tournament2.save
 
-tournament3 = Tournament.create!(name: "Express", ubication_name: "Pasco Club", ubication_address: "El Aguilucho 3308", user_id: user3.id, price: 8000, start_date: 2023-04-07, end_date: 2023-04-07, duration: 1, type: "Express", gender: "Mixto", min_matches: 3, max_matches: 3, places: 4, match_duration: 1, awards: "Trofeo", other: "Inscrpicion Hasta el 05 de Abril")
+tournament3 = Tournament.create!(name: "Express", ubication_name: "Pasco Club", ubication_address: "El Aguilucho 3308", user_id: user3.id, price: 8000, start_date: "2023-04-07", end_date: "2023-04-07", duration: "4 horas", type: "Express", category: "Masculino 1ra", min_matches: 3, max_matches: 3, places: 4, available_places: 4, match_duration: "1 hora", awards: "Trofeo", other: "Inscrpicion Hasta el 05 de Abril")
 
 file = URI.open("https://i.pinimg.com/originals/90/ca/50/90ca500c7219727670904935c8f0fbfa.jpg")
 tournament3.photo.attach(io: file, filename: "t3.png", content_type: "image/png")

@@ -1,5 +1,32 @@
-<%= @tournaments %>
-<% @tournaments.each do |tournament| %>
-<%= tournament.name %>
-<% end %>
-<%= link_to "New tournament", new_tournament_path %>
+<div class="container">
+  <%= form_with url: tournaments_path, method: :get, class: "d-flex" do |f| %>
+    <%=
+      f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true }
+      %>
+    <%= #f.select :categories, options_from_collection_for_select(Tournament.all, :id, :category), {prompt: 'Categoría'}, {:multiple => true}
+    %>
+    <%= #f.collection_check_boxes :category, Tournament.all, :id, :category, { multiple: true }
+    %>
+    <%=
+      f.number_field(
+        :max_price,
+        value: 0,
+        delimiter: '',
+        unit: '',
+        step: 10000,
+        prompt: 'Categoría'
+      )
+    %>
+    <%= f.submit "Buscar" %>
+  <% end %>
+
+
+  <%= @tournaments %>
+  <% @tournaments.each do |tournament| %>
+    <br>
+    <%= link_to tournament.name, tournament_path(tournament.id) %>
+  <% end %>
+  <br>
+  <%= link_to "Nuevo tournament", new_tournament_path if policy(Tournament).new?%>
+  <%= link_to "Mis torneos organizados", my_tournaments_tournaments_path %>
+</div>
