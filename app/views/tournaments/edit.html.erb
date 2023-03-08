@@ -1,23 +1,23 @@
-  <h1>Create your tournament</h1>
+  <h1>Edita tu torneo</h1>
   <div class="container">
     <%= simple_form_for(@tournament) do |f| %>
-      <%= f.input :name %>
-      <%= f.input :ubication_address %>
-      <%= f.input :ubication_name %>
-      <%= f.input :price %>
-      <%= f.input :start_date %>
-      <%= f.input :end_date %>
-      <%= f.input :duration %>
-      <%= f.input :type, collection: ["Champions League", "Americano", "Express"] %>
-      <%= f.input :category, collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
-      <%= f.input :min_matches %>
-      <%= f.input :max_matches %>
-      <%= f.input :places %>
-      <%= f.input :match_duration %>
-      <%= f.input :awards %>
-      <%= f.input :other %>
-      <%= f.input :photo, as: :file %>
-      <%= f.button :submit %>
+      <%= f.input :name, :label => "Nombre del torneo" %>
+      <%= f.input :ubication_address, :label => "Dirección" %>
+      <%= f.input :ubication_name, :label => "Nombre de la ubicación" %>
+      <%= f.input :price, :label => "Precio por pareja"%>
+      <%= f.input :start_date, :label => "Fecha y hora de inicio"%>
+      <%= f.input :end_date, :label => "Fecha y hora de término"%>
+      <%= f.input :duration, :label => "Duración por día"%>
+      <%= f.input :type, :label => "Seleccionar tipo de torneo", collection: ["Champions League", "Americano", "Express", "Otro"]
+      <%= f.input :category, :label => "Seleccionar categoría", collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
+      <%= f.input :min_matches, :label => "Partidos mínimos a jugar por pareja" %>
+      <%= f.input :max_matches, :label => "Partidos máximos a jugar por pareja" %>
+      <%= f.input :places, :label => "Cupos disponibles (1 cupo por pareja)"%>
+      <%= f.input :match_duration, :label => "Duración aproximada de cada partido" %>
+      <%= f.input :awards, :label => "Premios" %>
+      <%= f.input :other, :label => "Otras especificaciones" %>
+      <%= f.input :photo, as: :file, :label => "Imagen"%>
+      <%= f.button :submit, "Guardar cambios" %>
     <% end %>
 
     <%= link_to "Back to tournaments", tournaments_path %>
