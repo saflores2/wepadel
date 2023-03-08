@@ -10,3 +10,7 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.contenedor{
+  min-height: calc(100vh - 40px - 120px);
+}

@@ -7,9 +7,6 @@ if Rails.env.development?
  User.destroy_all
  puts "Data deleted successfully"
 end
-
-
-
 user1 = User.create!(name: "Marcelo", last_name:"Dalmau", email: "Marcelo@gmail.com", password: "123456", phone: "911223344")
 archivo1 = URI.open("https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg")
 user1.photo.attach(io: archivo1, filename: "marcelo.png", content_type: "image/png")
