@@ -32,15 +32,14 @@
 <br>
 <%= @tournament.other %>
 <br>
+<%= cl_image_tag @tournament.photo.key, height: 300, width: 400, crop: :fill %>
+<br>
 <%= link_to "Back to tournaments", tournaments_path %>
 <br>
 <%= link_to "Fixture", fixture_tournament_path(@tournament.id)%>
 <br>
-<% if @tournament.user == current_user %>
-  <%= link_to "Edit tournament", edit_tournament_path(@tournament.id)%>
-  <br>
-  <%= link_to "Delete",
-    tournament_path(@tournament),
-    data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}
-  %>
-<% end  %>
+<% if policy(@tournament).edit? %>
+  <%= link_to "Editar torneo", edit_tournament_path(@tournament.id) %>
+<% end %>
+<br>
+<%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>

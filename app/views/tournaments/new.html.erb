@@ -8,16 +8,14 @@
       <%= f.input :start_date %>
       <%= f.input :end_date %>
       <%= f.input :duration %>
-      <%= f.input :type, collection: ["Champions League", "Americano", "Express"]  %>
-      <%= f.input :gender, collection: ["Femenino", "Masculino", "Mixto"] %>
-      <%= f.input :category, collection: ["1ra", "2da", "3ra", "4ta", "5ta", "6ta", "A", "B", "C", "D", "otra" ] %>
+      <%= f.input :category, collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
       <%= f.input :min_matches %>
       <%= f.input :max_matches %>
       <%= f.input :places %>
       <%= f.input :match_duration %>
       <%= f.input :awards %>
       <%= f.input :other %>
-      <%# <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+      <%= f.input :photo, as: :file %>
       <%= f.button :submit, "Save" %>
     <% end %>
 
