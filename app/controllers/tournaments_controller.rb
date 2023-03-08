@@ -19,6 +19,7 @@ class TournamentsController < ApplicationController
 
   def show
     authorize @tournament
+    @participation = Participation.new
   end
 
   def new

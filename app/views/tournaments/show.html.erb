@@ -25,9 +25,14 @@
   <br>
   <% if policy(@tournament).edit? %>
     <%= link_to "Editar torneo", edit_tournament_path(@tournament.id) %>
+    <br>
   <% end %>
-  <br>
+
+  <%= simple_form_for [@tournament, @participation], url: tournament_participations_path(@tournament.id), method: :post do |f| %>
+    <%= f.input :partner_email, :label => "Ingresa el correo de tu pareja de juego si tiene una cuenta en wePadel: " %>
+    <%= f.submit "Inscribirse" %>
+  <% end %>
+
   <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
   <br>
-  <%= link_to "Buy participation", tournament_participation_path(@tournament.id), class: "button-29", data: { turbo_method: "post" }, style: "margin-top: 9px;" %>
 </div>
