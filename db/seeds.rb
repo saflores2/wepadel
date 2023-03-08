@@ -8,8 +8,6 @@ if Rails.env.development?
  puts "Data deleted successfully"
 end
 
-
-
 user1 = User.create!(name: "Marcelo", last_name:"Dalmau", email: "Marcelo@gmail.com", password: "123456", phone: "911223344")
 archivo1 = URI.open("https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg")
 user1.photo.attach(io: archivo1, filename: "marcelo.png", content_type: "image/png")
@@ -130,8 +128,6 @@ user10.photo.attach(io: file, filename: "fdo.png", content_type: "image/png")
 user10.save
 puts "#{user10.name} created successfully"
 
-
-
 puts "Creating Tournaments"
 
 tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751", user_id: user1.id, price: 10000, start_date: 2023-03-24, end_date: 2023-03-26, duration: 3, type: "Champions League", gender: "Mixto", min_matches: 3, max_matches: 5, places: 16, match_duration: 1, awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
@@ -139,8 +135,6 @@ tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club
 file = URI.open("https://www.lapadel.com/wp-content/uploads/2016/10/P-EMO_01.jpg")
 tournament1.photo.attach(io: file, filename: "t1.png", content_type: "image/png")
 tournament1.save
-
-
 
 tournament2 = Tournament.create!(name: "Americano", ubication_name: "Alto Padel", ubication_address: "Avenida Las Condes 11755", user_id: user2.id, price: 8000, start_date: 2023-03-31, end_date: 2023-03-31, duration: 1, type: "Americano", gender: "Femenino", min_matches: 2, max_matches: 8, places: 16, match_duration: 20, awards: "Dinero en Efectivo", other: "Inscrpicion Hasta el 29 de Marzo")
 
