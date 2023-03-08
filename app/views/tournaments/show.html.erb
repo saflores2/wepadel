@@ -1,47 +1,33 @@
-<%= @tournament %>
-<br>
-<%= @tournament.name %>
-<br>
-<%= @tournament.price %>
-<br>
-<%= @tournament.ubication_name %>
-<br>
-<%= @tournament.ubication_address %>
-<br>
-<%= @tournament.start_date %>
-<br>
-<%= @tournament.duration %>
-<br>
-<%= @tournament.end_date %>
-<br>
-<%= @tournament.type %>
-<br>
-<%= @tournament.gender %>
-<br>
-<%= @tournament.category %>
-<br>
-<%= @tournament.min_matches %>
-<br>
-<%= @tournament.max_matches %>
-<br>
-<%= @tournament.places %>
-<br>
-<%= @tournament.match_duration %>
-<br>
-<%= @tournament.awards %>
-<br>
-<%= @tournament.other %>
-<br>
-<%= cl_image_tag @tournament.photo.key, height: 300, width: 400, crop: :fill %>
-<br>
-<%= link_to "Back to tournaments", tournaments_path %>
-<br>
-<%= link_to "Fixture", fixture_tournament_path(@tournament.id)%>
-<br>
-<% if policy(@tournament).edit? %>
-  <%= link_to "Editar torneo", edit_tournament_path(@tournament.id) %>
-<% end %>
-<br>
-<%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
-<br>
-<%= link_to "Buy participation", tournament_participation_path(@tournament.id), class: "button-29", data: { turbo_method: "post" }, style: "margin-top: 9px;" %>
+<div class="container">
+  <h1><%= @tournament.name %></h1>
+  <p>Precio por pareja: <%= @tournament.price %></p>
+  <p>Lugar: <%= @tournament.ubication_name %></p>
+  <p>Dirección: <%= @tournament.ubication_address %></p>
+  <p>Fecha y hora de inicio: <%= @tournament.start_date.strftime("%d/%m/%y %H:%M") %></p>
+  <p>Fecha y hora de término: <%= @tournament.end_date.strftime("%d/%m/%y %H:%M") %></p>
+  <p>Duración por día: <%= @tournament.duration %></p>
+  <p>Tipo de torneo: <%= @tournament.type %></p>
+  <p>Categoría: <%= @tournament.category %></p>
+  <p>Partidos mínimos a jugar: <%= @tournament.min_matches %></p>
+  <p>Partidos máximos a jugar:<%= @tournament.max_matches %></p>
+  <p>Cupos totales: <%= @tournament.places %></p>
+  <p>Cupos disponibles: <%= @tournament.available_places %></p>
+  <p>Duración de partidos: <%= @tournament.match_duration %></p>
+  <p>Premios: <%= @tournament.awards %></p>
+  <p>Otras especificaciones: <%= @tournament.other %></p>
+  <% if @tournament.photo.key != nil %>
+    <%= cl_image_tag @tournament.photo.key, height: 300, width: 400, crop: :fill %>
+  <% end %>
+  <br>
+  <%= link_to "Back to tournaments", tournaments_path %>
+  <br>
+  <%= link_to "Fixture", fixture_tournament_path(@tournament.id)%>
+  <br>
+  <% if policy(@tournament).edit? %>
+    <%= link_to "Editar torneo", edit_tournament_path(@tournament.id) %>
+  <% end %>
+  <br>
+  <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
+  <br>
+  <%= link_to "Buy participation", tournament_participation_path(@tournament.id), class: "button-29", data: { turbo_method: "post" }, style: "margin-top: 9px;" %>
+</div>
