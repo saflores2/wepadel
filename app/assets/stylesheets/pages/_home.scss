@@ -1,5 +1,4 @@
 // Specific CSS for your home-page
-// Specific CSS for your home-page
 article {
   --img-scale: 1.001;
   --title-color: black;
@@ -25,11 +24,13 @@ article a::after {
 /* basic article elements styling */
 article h2 {
   margin: 0 0 18px 0;
-  font-family: "Bebas Neue", cursive;
+  font-family: "Montserrat";
   font-size: 1.9rem;
   letter-spacing: 0.06em;
   color: var(--title-color);
   transition: color 0.3s ease-out;
+  text-align: center;
+  font-weight: 700;
 }
 
 figure {
@@ -91,7 +92,15 @@ Generic layout (demo looks)
   box-sizing: border-box;
 }
 
-
+// body {
+//   margin: 0;
+//   padding: 48px 0;
+//   font-family: "Figtree", sans-serif;
+//   font-size: 1.2rem;
+//   line-height: 1.6rem;
+//   background-image: linear-gradient(45deg, #7c9885, #b5b682);
+//   min-height: 100vh;
+// }
 
 .articles {
   display: grid;
@@ -102,7 +111,45 @@ Generic layout (demo looks)
   gap: 24px;
 }
 
+// @media screen and (max-width: 960px) {
+//   article {
+//     container: card/inline-size;
+//   }
+//   .article-body p {
+//     display: none;
+//   }
+// }
 
+// @container card (min-width: 380px) {
+//   .article-wrapper {
+//     display: grid;
+//     grid-template-columns: 100px 1fr;
+//     gap: 16px;
+//   }
+//   .article-body {
+//     padding-left: 0;
+//   }
+//   figure {
+//     width: 100%;
+//     height: 100%;
+//     overflow: hidden;
+//   }
+//   figure img {
+//     height: 100%;
+//     aspect-ratio: 1;
+//     object-fit: cover;
+//   }
+// }
+
+// .sr-only:not(:focus):not(:active) {
+//   clip: rect(0 0 0 0);
+//   clip-path: inset(50%);
+//   height: 1px;
+//   overflow: hidden;
+//   position: absolute;
+//   white-space: nowrap;
+//   width: 1px;
+// }
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400;1,900&display=swap');
 *{
@@ -111,7 +158,7 @@ Generic layout (demo looks)
   box-sizing:border-box;
   font-family:'Playfair Display', serif;
 }
-body{ background: #EEEEEE;
+body{ background:url(https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1776&q=80);
   background-size:cover;
   background-position:right;
   background-attachment:fixed;
@@ -128,7 +175,13 @@ body{ background: #EEEEEE;
   font-size:1.5rem;
   font-style:italic;
 }
-
+// .container{
+//   width:100vw;
+//   display:flex;
+//   justify-content:space-around;
+//   flex-wrap:wrap;
+//   padding:40px 20px;
+// }
 .card{
   display:flex;
   flex-direction:column;
