@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_181539) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_225344) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_181539) do
   create_table "participations", force: :cascade do |t|
     t.bigint "tournament_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "partner_id", null: false
+    t.bigint "partner_id"
     t.string "partner_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -94,15 +94,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_181539) do
     t.integer "price"
     t.integer "available_places"
     t.index ["user_id"], name: "index_tournaments_on_user_id"
-  end
-
-  create_table "ubications", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.float "lat"
-    t.float "lng"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
