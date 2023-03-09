@@ -1,7 +1,8 @@
 class ParticipationsController < ApplicationController
+  before_action :skip_authorization
+
   def create
     @participation = Participation.new
-    authorize @participation
     @participation.user = current_user
     @participation.tournament_id = params[:tournament_id]
     @participation.status = "solicitado"
@@ -16,11 +17,14 @@ class ParticipationsController < ApplicationController
   end
 
   def my_participations
-    tournaments = Tournament.where(user_id: current_user.id)
-    @participations = []
-    tournaments.each do |tourna|
-      @participations += tourna.participations
-    end
+    my_tournaments = current_user.tournaments
+    other_tournaments = current_user.partner_tournaments
+    @tournaments = my_tournaments + other_tournaments
+    # tournaments = Tournament.where(user_id: current_user.id)
+    # @participations = []
+    # tournaments.each do |tourna|
+    #   @participations += tourna.participations
+    # end
   end
 
   def payment
@@ -38,6 +42,8 @@ class ParticipationsController < ApplicationController
         @participation.partner_id = partner.id
         @participation.partner_email = params[:participation][:partner_email]
       end
+    # else
+    #   @participation.partner_id = current_user.id
     end
   end
 
