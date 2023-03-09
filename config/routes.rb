@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :participations, only: [:create]
     collection do
       get :my_tournaments
+    end
+    member do
       get :fixture
     end
   end
@@ -19,5 +21,9 @@ Rails.application.routes.draw do
     collection do
       get :my_participations
     end
+  end
+
+  resources :chatrooms, only: :show do
+    resources :messages, only: :create
   end
 end

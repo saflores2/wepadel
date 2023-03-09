@@ -1,5 +1,19 @@
-<%= @tournaments %>
-<% @tournaments.each do |tournament| %>
-<%= tournament.name %>
-<% end %>
-<%= link_to "New tournament", new_tournament_path %>
+<div class="container">
+  <%= form_with url: tournaments_path, method: :get, class: "d-flex" do |f| %>
+    <%= f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true } %>
+    <%= f.select :type, options_for_select(@types), {prompt: 'Tpo de torneo', :multiple => true } %>
+    <%= f.number_field(:max_price) %>
+    <%= f.date_field(:start_date) %>
+    <%= f.date_field(:end_date) %>
+    <%= f.submit "Buscar" %>
+  <% end %>
+
+
+  <% @tournaments.each do |tournament| %>
+    <br>
+    <%= link_to tournament.name, tournament_path(tournament.id) %>
+  <% end %>
+  <br>
+  <%= link_to "Nuevo tournament", new_tournament_path if policy(Tournament).new?%>
+  <%= link_to "Mis torneos organizados", my_tournaments_tournaments_path %>
+</div>

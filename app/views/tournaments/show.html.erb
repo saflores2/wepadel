@@ -1,1 +1,38 @@
-<%= @tournament %>
+<div class="container">
+  <h1><%= @tournament.name %></h1>
+  <p>Precio por pareja: <%= @tournament.price %></p>
+  <p>Lugar: <%= @tournament.ubication_name %></p>
+  <p>Dirección: <%= @tournament.ubication_address %></p>
+  <p>Fecha y hora de inicio: <%= @tournament.start_date.strftime("%d/%m/%y %H:%M") %></p>
+  <p>Fecha y hora de término: <%= @tournament.end_date.strftime("%d/%m/%y %H:%M") %></p>
+  <p>Duración por día: <%= @tournament.duration %></p>
+  <p>Tipo de torneo: <%= @tournament.type %></p>
+  <p>Categoría: <%= @tournament.category %></p>
+  <p>Partidos mínimos a jugar: <%= @tournament.min_matches %></p>
+  <p>Partidos máximos a jugar:<%= @tournament.max_matches %></p>
+  <p>Cupos totales: <%= @tournament.places %></p>
+  <p>Cupos disponibles: <%= @tournament.available_places %></p>
+  <p>Duración de partidos: <%= @tournament.match_duration %></p>
+  <p>Premios: <%= @tournament.awards %></p>
+  <p>Otras especificaciones: <%= @tournament.other %></p>
+  <% if @tournament.photo.key != nil %>
+    <%= cl_image_tag @tournament.photo.key, height: 300, width: 400, crop: :fill %>
+  <% end %>
+  <br>
+  <%= link_to "Back to tournaments", tournaments_path %>
+  <br>
+  <%= link_to "Fixture", fixture_tournament_path(@tournament.id)%>
+  <br>
+  <% if policy(@tournament).edit? %>
+    <%= link_to "Editar torneo", edit_tournament_path(@tournament.id) %>
+    <br>
+  <% end %>
+
+  <%= simple_form_for [@tournament, @participation], url: tournament_participations_path(@tournament.id), method: :post do |f| %>
+    <%= f.input :partner_email, :label => "Ingresa el correo de tu pareja de juego si tiene una cuenta en wePadel: " %>
+    <%= f.submit "Inscribirse" %>
+  <% end %>
+
+  <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
+  <br>
+</div>

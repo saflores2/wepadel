@@ -1,4 +1,4 @@
-  <h1>Publica tu torneo</h1>
+  <h1>Edita tu torneo</h1>
   <div class="container">
     <%= simple_form_for(@tournament) do |f| %>
       <%= f.input :name, :label => "Nombre del torneo" %>
@@ -8,12 +8,7 @@
       <%= f.input :start_date, :label => "Fecha y hora de inicio"%>
       <%= f.input :end_date, :label => "Fecha y hora de término"%>
       <%= f.input :duration, :label => "Duración por día"%>
-      <h4>Tipos de torneos disponibles:</h4>
-      <p><strong>Champions League:</strong> Son 4 grupos con 4 parejas cada uno. Cada pareja juega 3 partidos y las 2 primeras parejas de cada grupo pasan a cuartos de final. Este torneo asegura un mínimo de 3 partidos. Debe tener 16 cupos.</p>
-      <p><strong>Americano:</strong> La terminología “americano” se refiere a “todos contra todos”. Debe tener un número par de cupos para que todas las parejas jueguen al mismo tiempo.</p>
-      <p><strong>Express:</strong> Se suelen hacer 2 grupos de 4 parejas y cada pareja juega 3 partidos. Las dos primeras de cada grupo, juegan semifinales y las otras 4 suelen jugar por el quinto puesto. Este formato asegura jugar 5 partidos. Debe tener 8 cupos.</p>
-      <p><strong>Otro:</strong> Este tipo de torneo no incluye fixture.</p>
-      <%= f.input :type, :label => "Seleccionar tipo de torneo", collection: ["Champions League", "Americano", "Express", "Otro"] %>
+      <%= f.input :type, :label => "Seleccionar tipo de torneo", collection: ["Champions League", "Americano", "Express", "Otro"]
       <%= f.input :category, :label => "Seleccionar categoría", collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
       <%= f.input :min_matches, :label => "Partidos mínimos a jugar por pareja" %>
       <%= f.input :max_matches, :label => "Partidos máximos a jugar por pareja" %>
@@ -22,7 +17,7 @@
       <%= f.input :awards, :label => "Premios" %>
       <%= f.input :other, :label => "Otras especificaciones" %>
       <%= f.input :photo, as: :file, :label => "Imagen"%>
-      <%= f.button :submit, "Publicar torneo" %>
+      <%= f.button :submit, "Guardar cambios" %>
     <% end %>
 
     <%= link_to "Back to tournaments", tournaments_path %>
