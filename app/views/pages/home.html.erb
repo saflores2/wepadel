@@ -28,7 +28,7 @@
 
 <div class="banner">
   <div class="bannerr">
-    <h1>Encuentra <strong>las mejores</strong> Competencias  <strong>de Padle</strong>!</h1>
+    <h1>Encuentra <strong>las mejores</strong> Competencias  <strong>de Padel</strong>!</h1>
   </div>
 </div>
 
@@ -46,7 +46,11 @@
             <div class="article-wrapper">
               <figure>
                 <%# <img src="https://picsum.photos/id/1011/800/450" alt="" /> %>
-                <%= image_tag tournament.photo %>
+                <% if tournament.photo.key != nil %>
+                  <%= image_tag tournament.photo %>
+                <% else %>
+                  <img src="https://www.tourinnovacion.cl/wp-content/uploads/2022/06/padel.jpg">
+                <% end %>
               </figure>
               <div class="article-body">
                 <h2><%= tournament.ubication_name %></h2>
