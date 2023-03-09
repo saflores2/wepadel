@@ -1,0 +1,69 @@
+.bannerr {
+  background: center;
+  padding: 100px 0;
+  animation: banner 28s linear infinite;
+  transition-delay: 1s;
+  width: 100%;
+  height: 40vh;
+}
+
+@keyframes banner {
+  0%, 10% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://leondeoro.com/wp-content/uploads/2022/02/03-1.jpg");
+    background-size: cover;
+  }
+  11%, 20% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://www.capvermellcountryclub.com/uploads/pics/padel_03.jpg");
+    background-size: auto;
+  }
+  21%, 30% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://c1.wallpaperflare.com/preview/147/323/785/paddle-paddle-tennis-court.jpg");
+    background-size: cover;
+  }
+  31%, 40% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://wallpapercave.com/wp/wp4283319.jpg");
+    background-size: auto;
+  }
+  41%, 50% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://tennis-uni.com/wp-content/uploads/padel-tennisschlaeger.jpeg");
+    background-size: cover;
+  }
+  51%, 60% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://images.pexels.com/photos/1103833/pexels-photo-1103833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-size: cover;
+  }
+  61%, 70% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://img.freepik.com/free-photo/tennis-paddles-balls-arrangement_23-2149434236.jpg?w=1380&t=st=1678233998~exp=1678234598~hmac=dcb0431ccc8f0ee47c99655a16130b59daa3d628c8d634c6f2ba3bbbcf142aa6");
+    background-size: cover;
+  }
+  71%, 80% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://img.freepik.com/free-photo/top-view-paddle-tennis-court_23-2149434128.jpg");
+    background-size: cover;
+  }
+  81%, 90% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://img.freepik.com/free-photo/people-playing-padle-tennis-inside_23-2149444609.jpg");
+    background-size: cover;
+  }
+
+  91%, 100% {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://padelmania.ro/wp-content/uploads/2017/01/PadelManiaLocatie-1-scaled.jpg");
+    background-size: cover;
+  }
+
+}
+
+.bannerr h1 {
+  margin: 0;
+  color: #EEEEEE;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.bannerr p {
+  font-size: 18px;
+  color: #EEEEEE;
+  opacity: .7;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}

@@ -8,7 +8,9 @@ if Rails.env.development?
  puts "Data deleted successfully"
 end
 
+
 user1 = User.create!(name: "Marcelo", last_name:"Dalmau", nickname: "user1", email: "Marcelo@gmail.com", password: "123456", phone: "911223344")
+
 archivo1 = URI.open("https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg")
 user1.photo.attach(io: archivo1, filename: "marcelo.png", content_type: "image/png")
 user1.save
@@ -129,6 +131,7 @@ user20.save
 puts "#{user20.name} created successfully"
 
 puts "Creating Tournaments"
+
 
 tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751", user_id: user1.id, price: 10000, start_date: "2023-03-24", end_date: "2023-03-26", duration: "3 horas", type: "Champions League", category: "Mixto A", min_matches: 3, max_matches: 5, places: 16, available_places: 16, match_duration: "1 hora", awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
 
