@@ -1,29 +1,3 @@
- <!--Sidebar-->
-
- <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Sidebar</title>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-  </head>
-  <body>
-    <ul class="sidebar">
-      <li class="sidebar-brand"><a href="">Sidebar by Andrew</a></li>
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Support</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Logout</a></li>
-      </ul>
-      <button id="toggle-sidebar" class="btn btn-primary" style="font-size: 16px;">Toggle Sidebar</button>
-    </body>
-</html>
-
- <!-- FIN - Sidebar-->
-
-
-
-
-
 <!---Banner-->
 
 <div class="banner">
@@ -32,8 +6,19 @@
   </div>
 </div>
 
+
  <!--fin Banner-->
 
+ <div class="container">
+  <%= form_with url: tournaments_path, method: :get, class: "d-flex" do |f| %>
+    <%= f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true } %>
+    <%= f.select :type, options_for_select(@types), {prompt: 'Tpo de torneo', :multiple => true } %>
+    <%= f.number_field(:max_price) %>
+    <%= f.date_field(:start_date) %>
+    <%= f.date_field(:end_date) %>
+    <%= f.submit "Buscar" %>
+  <% end %>
+  
   <!-- Aqui comienzan las card de tournament-->
 
 <div class="container">
@@ -46,7 +31,9 @@
             <div class="article-wrapper">
               <figure>
                 <%# <img src="https://picsum.photos/id/1011/800/450" alt="" /> %>
+                <% if tournament.photo.key != nil %>
                 <%= image_tag tournament.photo %>
+                <% end %>
               </figure>
               <div class="article-body">
                 <h2><%= tournament.ubication_name %></h2>
