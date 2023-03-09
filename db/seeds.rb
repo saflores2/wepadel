@@ -130,12 +130,12 @@ user20.photo.attach(io: file, filename: "fdo.png", content_type: "image/png")
 user20.save
 puts "#{user20.name} created successfully"
 
-puts "Creating Tournaments"
+puts "Creando Torneos"
 
 
 tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club de Padel RedPadel", ubication_address: "Av Vitacura 8751", user_id: user1.id, price: 10000, start_date: "2023-03-24", end_date: "2023-03-26", duration: "3 horas", type: "Champions League", category: "Mixto A", min_matches: 3, max_matches: 5, places: 16, available_places: 16, match_duration: "1 hora", awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
 
-file = URI.open("https://www.lapadel.com/wp-content/uploads/2016/10/P-EMO_01.jpg")
+file = URI.open("https://s1.eestatic.com/2020/02/29/deportes/otros-deportes/otros_deportes-deportes-padel_471216738_146965638_864x486.jpg")
 tournament1.photo.attach(io: file, filename: "t1.png", content_type: "image/png")
 tournament1.save
 
@@ -145,7 +145,7 @@ file = URI.open("https://canariasnoticias.es/sites/default/files/2018/03/canchas
 tournament2.photo.attach(io: file, filename: "t2.png", content_type: "image/png")
 tournament2.save
 
-tournament3 = Tournament.create!(name: "Express", ubication_name: "Pasco Club", ubication_address: "El Aguilucho 3308", user_id: user3.id, price: 8000, start_date: "2023-04-07", end_date: "2023-04-07", duration: "4 horas", type: "Express", category: "Masculino 1ra", min_matches: 3, max_matches: 3, places: 4, available_places: 4, match_duration: "1 hora", awards: "Trofeo", other: "Inscrpicion Hasta el 05 de Abril")
+tournament3 = Tournament.create!(name: "Express", ubication_name: "Pasco Club", ubication_address: "El Aguilucho 3308", user_id: user3.id, price: 8000, start_date: "2023-04-07", end_date: "2023-04-07", duration: "4 horas", type: "Express", category: "Masculino 1ra", min_matches: 3, max_matches: 3, places: 8, available_places: 8, match_duration: "1 hora", awards: "Trofeo", other: "Inscrpicion Hasta el 05 de Abril")
 
 file = URI.open("https://i.pinimg.com/originals/90/ca/50/90ca500c7219727670904935c8f0fbfa.jpg")
 tournament3.photo.attach(io: file, filename: "t3.png", content_type: "image/png")
