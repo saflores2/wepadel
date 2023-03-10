@@ -94,17 +94,21 @@
       <%# This code displays a list of tournaments %>
       <% @tournaments[0, [@tournaments.size, 3].min].each do |tournament| %>
         <div class="col-sm-6 col-md-4 col-lg-4">
-          <section class="articles">
+          <section class="articles mt-3">
             <article>
               <div class="article-wrapper">
                 <figure>
                   <%# Display the tournament photo if available %>
-                  <%= image_tag(tournament.photo, alt: "Tournament photo") unless tournament.photo.key.nil? %>
+                  <% if tournament.photo.key.nil?%>
+                    <img src="https://www.tourinnovacion.cl/wp-content/uploads/2022/06/padel.jpg">
+                  <% else %>
+                    <%= image_tag(tournament.photo, alt: "Tournament photo") unless tournament.photo.key.nil? %>
+                  <% end %>
                 </figure>
                 <div class="article-body">
                   <h5 class="article-title"><%= tournament.name %></h5>
                   <h6><%= number_to_currency(tournament.price, precision: 0, unit: 'CLP $ ', delimiter: '.') %></h6>
-                  <a href="/tournament/<%=tournament.id%>" class="read-more" onclick="return confirm('Are you sure you want to navigate to this tournament?')">
+                  <a href="/tournaments/<%=tournament.id%>" class="read-more">
                     Read more <span class="sr-only">about this is some title</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
