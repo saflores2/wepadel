@@ -56,5 +56,6 @@
     <br>
   <% end %>
   <br>
+  <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "btn btn-primary", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
   <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
 </div>
