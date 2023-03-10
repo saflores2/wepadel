@@ -33,6 +33,19 @@ article h2 {
   font-weight: 700;
 }
 
+.article-title {
+  text-align: center;
+  color: rgb(14, 12, 12);
+  text-shadow: #1D1C20;
+  font-size: 1.8rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  font-weight: 500;
+  font-family: "Montserrat";
+  transition: color 0.3s ease-out;
+  letter-spacing: 0.06em;
+}
+
+
 figure {
   margin: 0;
   padding: 0;
