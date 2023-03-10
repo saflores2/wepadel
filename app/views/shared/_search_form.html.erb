@@ -1,5 +1,5 @@
-    <div class="form_style">
-      <%= form_with url: tournaments_path, method: :get, class: "d-flex mt-2" do |f| %>
+<div>
+<%= form_with url: tournaments_path, method: :get, class: "d-flex mt-2" do |f| %>
         <div class="row mx-auto">
          <div class="col-sm-6 col-md-4 col-lg-2">
            <%= f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true, size: 3 } %>
@@ -11,14 +11,12 @@
             <%= f.number_field :max_price, placeholder: 'Precio máximo' %>
          </div>
          <div class="col-sm-6 col-md-4 col-lg-2">
-           <%= f.date_field :start_date, label: 'Fecha de inicio' %>
+          <input required="Fecha de Inicio" type="text" class="form-control" placeholder="Inicio" onfocus="(this.type='date')" style="text-align: center;"/>
          </div>
          <div class="col-sm-6 col-md-4 col-lg-2">
-           <%= f.date_field :end_date, label: 'Fecha de finalización' %>
+          <input required="Fecha de Inicio" type="text" class="form-control" placeholder="Fin" onfocus="(this.type='date')" style="text-align: center;"/>
           </div>
          <div class="col-sm-6 col-md-4 col-lg-2">
-            <%= f.submit "Buscar", class: "btn btn-primary" %>
-         </div>
-       </div>
-      <% end %>
-    </div>
+<%= f.submit "Buscar", class: "btn btn-primary" %>
+<% end %>
+</div>
