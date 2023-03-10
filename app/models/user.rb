@@ -13,4 +13,5 @@ class User < ApplicationRecord
   has_many :partner_tournaments, through: :partner_participations, source: :tournament
   validates :name, :last_name, :email, presence: true
   validates :email, uniqueness: true
+  has_many :messages
 end
