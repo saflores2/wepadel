@@ -20,7 +20,7 @@
   <% end %>
 
 
-  <% if @tournament.available_places.positive? %>
+  <% if @tournament.available_places.positive? && user_signed_in? %>
   <%# Si no tengo alguna participación en este torneo y no soy el organizador muestro el formulario de inscripción %>
     <% if (current_user.tournaments + current_user.partner_tournaments).include?(@tournament) == false && current_user != @tournament.user %>
       <%= simple_form_for [@tournament, @participation], url: tournament_participations_path(@tournament.id), method: :post do |f| %>
@@ -41,6 +41,9 @@
         <h5>¡Ya te encuentras inscrito en este torneo!</h5>
       <% end %>
     <% end %>
+  <% else %>
+    <br>
+    <%= link_to "Inscribirse", new_user_session_path %>
   <% end %>
 
   <br>
