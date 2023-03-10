@@ -1,0 +1,17 @@
+<div class="container">
+  <h2>Torneos confirmados</h2>
+  <% @payed_participations.each do |p| %>
+    <% tournament = Tournament.find(p.tournament_id) %>
+    <%= link_to tournament.name, tournament_path(tournament.id) if tournament.available_places.positive?%>
+  <% end %>
+  <br>
+  <h2>Torneos pendientes de pago</h2>
+  <% @not_payed_participations.each do |p| %>
+    <% tournament = Tournament.find(p.tournament_id) %>
+    <%= link_to tournament.name, tournament_path(tournament.id) if tournament.available_places.positive?%>
+  <% end %>
+  <br>
+  <br>
+  <%= link_to "Todos los torneos", tournaments_path %>
+
+</div>

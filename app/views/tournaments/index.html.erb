@@ -13,7 +13,4 @@
     <br>
     <%= link_to tournament.name, tournament_path(tournament.id) %>
   <% end %>
-  <br>
-  <%= link_to "Nuevo tournament", new_tournament_path if policy(Tournament).new?%>
-  <%= link_to "Mis torneos organizados", my_tournaments_tournaments_path %>
 </div>
