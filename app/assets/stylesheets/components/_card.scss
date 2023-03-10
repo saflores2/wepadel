@@ -116,35 +116,6 @@ Generic layout (demo looks)
   gap: 24px;
 }
 
-// @media screen and (max-width: 960px) {
-//   article {
-//     container: card/inline-size;
-//   }
-//   .article-body p {
-//     display: none;
-//   }
-// }
-
-// @container card (min-width: 380px) {
-//   .article-wrapper {
-//     display: grid;
-//     grid-template-columns: 100px 1fr;
-//     gap: 16px;
-//   }
-//   .article-body {
-//     padding-left: 0;
-//   }
-//   figure {
-//     width: 100%;
-//     height: 100%;
-//     overflow: hidden;
-//   }
-//   figure img {
-//     height: 100%;
-//     aspect-ratio: 1;
-//     object-fit: cover;
-//   }
-// }
 
 .sr-only:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
@@ -163,11 +134,6 @@ Generic layout (demo looks)
   box-sizing:border-box;
   font-family:'Playfair Display', serif;
 }
-// body{ background:url(https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1776&q=80);
-//   background-size:cover;
-//   background-position:right;
-//   background-attachment:fixed;
-// }
 #header{
   margin:20px;
 }
@@ -180,13 +146,6 @@ Generic layout (demo looks)
   font-size:1.5rem;
   font-style:italic;
 }
-// .container{
-//   width:100vw;
-//   display:flex;
-//   justify-content:space-around;
-//   flex-wrap:wrap;
-//   padding:40px 20px;
-// }
 .card{
   display:flex;
   flex-direction:column;
