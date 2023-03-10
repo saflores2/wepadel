@@ -1,13 +1,55 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <a class="navbar-brand" href="root">
-      <%= image_tag "logo", style: "margin-left: 50px;" "width: 50%; max-width: 100px;" %>
-    </a>
+
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "logo_oficial", style: "margin-left: 50px;" "width: 50%; max-width: 100px;" %>
+    <% end %>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item active">
+            <%= link_to "Inicio", root_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Torneos", tournaments_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Mis torneos", my_participations_participations_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item dropdown">
+            <% if current_user.photo.attached? %>
+              <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+              <%= image_tag "https://w7.pngwing.com/pngs/505/761/png-transparent-login-computer-icons-avatar-icon-monochrome-black-silhouette.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% end %>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <%= link_to "Publica tu torneo", new_tournament_path, class: "dropdown-item" %>
+              <%# <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+              <%= link_to "Mis publicaciones", my_tournaments_tournaments_path, class: "dropdown-item" %>
+              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <%# <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
           <li class="nav-item active">
             <h2 class="title_t">We-Padel</h2>
@@ -24,11 +66,12 @@
       </ul>
     </div>
   </div>
-</div>
+</div> %>
 
 
 
-<div class="area"></div><navv class="main-menu">
+<%# <div class="area"></div><navv class="main-menu">
+
             <ul>
                 <li>
                     <a href="https://jbfarrow.com">
@@ -111,4 +154,4 @@
                 </li>
             </ul>
         </navv>
-</div>
+</div> %>
