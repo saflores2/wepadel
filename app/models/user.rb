@@ -12,4 +12,5 @@ class User < ApplicationRecord
                             foreign_key: 'partner_id'
   validates :name, :last_name, :email, presence: true
   validates :email, uniqueness: true
+  has_many :messages
 end
