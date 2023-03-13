@@ -9,7 +9,7 @@ class ParticipationsController < ApplicationController
     @participation.status = "solicitado"
     find_partner if valid_partner?
     @participation.save
-    flash.alert = "Correo de pareja no válido, puedes continuar con tu inscripción" if valid_partner? == false && params[:participation][:partner_email] != ""
+    flash.alert = "Correo de pareja no válido, puedes continuar con tu inscripción" if @participation.partner_id == nil && params[:participation][:partner_email] != ""
     redirect_to payment_participation_path(@participation.id)
   end
 
@@ -44,10 +44,21 @@ class ParticipationsController < ApplicationController
     @tournament = @participation.tournament
   end
 
+  def validate_partner_in_tournament?
+    partner_participation = Participation.find_by(tournament_id: params[:tournament_id], partner_id: current_user.id)
+    partner_other_participation = Participation.find_by(tournament_id: params[:tournament_id], partner_id: @participation.partner_id)
+    if partner_participation.nil? && partner_other_participation.nil?
+      return true
+    else
+      return false
+    end
+  end
+
   def valid_partner?
     if params[:participation][:partner_email] != @participation.tournament.user[:email] &&
        params[:participation][:partner_email] != current_user.email &&
-       params[:participation][:partner_email] != ""
+       params[:participation][:partner_email] != "" &&
+       validate_partner_in_tournament?
       true
     else
       false

@@ -16,7 +16,6 @@
   <p>Premios: <%= @tournament.awards %></p>
   <p>Otras especificaciones: <%= @tournament.other %></p>
   <% if @tournament.photo.key != nil %>
-    <%= cl_image_tag @tournament.photo.key, height: 300, width: 400, crop: :fill %>
   <% end %>
 
 
@@ -58,6 +57,8 @@
     <br>
   <% end %>
   <br>
-  <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "btn btn-primary", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
+  <% if current_user != @tournament.user %>
+    <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "btn btn-primary", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
+  <% end %>
   <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
 </div>

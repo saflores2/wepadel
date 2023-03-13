@@ -3,7 +3,7 @@
 <div class="banner">
   <div class="bannerr">
     <div style="margin-left: 90px;">
-      <h1>Encuentra <strong>las mejores</strong> Competencias  <strong>de Padel</strong>!</h1>
+      <h1>Encuentra <strong>las Mejores</strong> Competencias  <strong>de Padel</strong>!</h1>
     </div>
       </div>
 </div>
@@ -11,86 +11,33 @@
 
  <!--fin Banner-->
 
- <style>
-  body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #f7f7f7;
-  }
-
-   .form-group {
-    margin-bottom: 20px;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-  input[type="text"],
-  input[type="number"],
-  input[type="date"],
-  select {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #EEE;
-    box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.1);
-  }
-
-  input[type="submit"] {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    color: #EEE;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-
-  input[type="submit"]:hover {
-    background-color: #0069d9;
-  }
-</style>
-
-
-  <!-- Aqui comienzan las card de tournament-->
-
   <div class="container">
-    <%= form_with url: tournaments_path, method: :get, class: "d-flex" do |f| %>
-      <div class="row mx-auto">
-        <div class="col-sm-6 col-md-4 col-lg-2">
-          <%= f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true, size: 3 } %>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-          <%= f.select :type, options_for_select(@types), {prompt: 'Tpo de torneo', :multiple => true, size: 3 } %>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-          <%= f.number_field(:max_price) %>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-          <%= f.date_field(:start_date) %>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-          <%= f.date_field(:end_date) %>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-          <%= f.submit "Buscar", class: "btn btn-primary" %>
-        </div>
+    <div class="form_style">
+      <%= form_with url: tournaments_path, method: :get, class: "d-flex mt-2" do |f| %>
+        <div class="row mx-auto">
+         <div class="col-sm-6 col-md-4 col-lg-2">
+           <%= f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true, size: 3 } %>
+         </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+           <%= f.select :type, options_for_select(@types), {prompt: 'Tipo de torneo', :multiple => true, size: 3 } %>
+         </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+            <%= f.number_field :max_price, placeholder: 'Precio máximo' %>
+         </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+          <input required="Fecha de Inicio" type="text" class="form-control" placeholder="Date" onfocus="(this.type='date')"/>
+         </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+           <%= f.date_field :end_date, label: 'Fecha de finalización' %>
+          </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+            <%= f.submit "Buscar", class: "btn btn-primary", style: "background-color: #184A22;" %>
+         </div>
+       </div>
       </div>
-    <% end %>
+     <% end %>
     <div class="row mt-5 mb-5">
+  <!-- Aqui comienzan las card de tournament-->
       <%# This code displays a list of tournaments %>
       <% @tournaments[0, [@tournaments.size, 3].min].each do |tournament| %>
         <div class="col-sm-6 col-md-4 col-lg-4">
@@ -109,7 +56,7 @@
                   <h5 class="article-title"><%= tournament.name %></h5>
                   <h6><%= number_to_currency(tournament.price, precision: 0, unit: 'CLP $ ', delimiter: '.') %></h6>
                   <a href="/tournaments/<%=tournament.id%>" class="read-more">
-                    Read more <span class="sr-only">about this is some title</span>
+                    Más información <span class="sr-only">about this is some title</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
