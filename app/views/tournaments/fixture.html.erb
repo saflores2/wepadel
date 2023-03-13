@@ -1,1 +1,78 @@
-<%= @tournament.type %>
+<div class="container">
+  <%if @tournament.type == "Champions League" %>
+    <% rounds_array = (1..6).to_a %>
+    <div class="d-flex justify-content-center">
+      <p class="match_card_g1 border text-center">Grupo 1</p>
+      <p class="match_card_g2 border text-center">Grupo 2</p>
+      <p class="match_card_g3 border text-center">Grupo 3</p>
+      <p class="match_card_g4 border text-center">Grupo 4</p>
+    </div>
+  <% end %>
+
+
+
+
+  <div class="d-flex p-2 m-2 justify-content-center">
+
+    <% rounds_array.each do |round_number| %>
+      <div>
+        <% matches_array = @matches.where(round: round_number) %>
+        <h5 class="text-center"><%= "Ronda #{round_number}" %></h5>
+
+        <% matches_array.each do |m|%>
+          <% if m.match_number.in?([1, 2, 9, 10, 17, 18])%>
+            <div class="p-3 m-2 border text-center w-16 match_card_g1">
+          <% elsif m.match_number.in?([3, 4, 11, 12, 19, 20])%>
+            <div class="p-3 m-2 border text-center w-16 match_card_g2">
+          <% elsif m.match_number.in?([5, 6, 13, 14, 21, 22])%>
+            <div class="p-3 m-2 border text-center w-16 match_card_g3">
+          <% elsif m.match_number.in?([7, 8, 15, 16, 23, 24])%>
+            <div class="p-3 m-2 border text-center w-16 match_card_g4">
+          <% else %>
+            <div class="p-3 m-2 border text-center w-16 match_card">
+          <% end %>
+
+              <h6><%= "Partido #{m.match_number}" %></h6>
+
+              <% if m.first_team_id != nil && m.second_team_id != nil && m.winner_id.nil? %>
+                <% team1 = Participation.find(m.first_team_id) %>
+                <% team2 = Participation.find(m.second_team_id) %>
+                <% user_team1 = User.find(team1.user_id) %>
+                <% user_team2 = User.find(team2.user_id) %>
+                <p><%= "#{user_team1.email}" %></p>
+                <p>vs</p>
+                <p><%= "#{user_team2.email}" %></p>
+                <%= form_with url: match_path(m.id), method: :patch do |f| %>
+                <%= f.select :winner, options_for_select([user_team1.email, user_team2.email]), {prompt: 'Ganador'} %>
+                <%= f.submit "Ingresar", class: "btn btn-primary", style: "background-color: #184A22;" %>
+                <% end  %>
+              <% elsif m.first_team_id != nil && m.second_team_id != nil && m.winner_id != nil %>
+                <% team1 = Participation.find(m.first_team_id) %>
+                <% team2 = Participation.find(m.second_team_id) %>
+                <% user_team1 = User.find(team1.user_id) %>
+                <% user_team2 = User.find(team2.user_id) %>
+                <% if m.winner_id == m.first_team_id %>
+                  <p class= "border text-center" style= "background-color: #184A22;"><%= "#{user_team1.email}" %></p>
+                  <p>vs</p>
+                  <p><%= "#{user_team2.email}" %></p>
+                <% else  %>
+                  <p><%= "#{user_team1.email}" %></p>
+                  <p>vs</p>
+                  <p class= "border text-center" style= "background-color: #184A22;"><%= "#{user_team2.email}" %></p>
+                <% end %>
+              <% else %>
+                <p><%= "#{m.first_team_name}" %></p>
+                <p>vs</p>
+                <p><%= "#{m.second_team_name}" %></p>
+              <% end %>
+
+            </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+
+
+
+</div>
