@@ -16,7 +16,6 @@
   <p>Premios: <%= @tournament.awards %></p>
   <p>Otras especificaciones: <%= @tournament.other %></p>
   <% if @tournament.photo.key != nil %>
-    <%= cl_image_tag @tournament.photo.key, height: 300, width: 400, crop: :fill %>
   <% end %>
 
 
