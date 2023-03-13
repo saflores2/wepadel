@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
   <head>
     <title>Wepadel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,9 +20,14 @@
     </style>
   </head>
 
-  <body><%= render "shared/navbar" %>
-<%= render "shared/flashes" %>
-
-    <%= yield %>
+  <body>
+        <%= render "shared/navbar" %>
+        <%= render "shared/flashes" %>
+      <%= yield %>
   </body>
+
+  <footer>
+    <%= render "shared/footer" %>
+  </footer>
+
 </html>

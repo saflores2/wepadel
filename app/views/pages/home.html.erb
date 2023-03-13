@@ -3,7 +3,7 @@
 <div class="banner">
   <div class="bannerr">
     <div style="margin-left: 90px;">
-      <h1>Encuentra <strong>las mejores</strong> Competencias  <strong>de Padel</strong>!</h1>
+      <h1>Encuentra <strong>las Mejores</strong> Competencias  <strong>de Padel</strong>!</h1>
     </div>
       </div>
 </div>
@@ -12,8 +12,30 @@
  <!--fin Banner-->
 
   <div class="container">
-    <%= render "shared/search_form" %>
-
+    <div class="form_style">
+      <%= form_with url: tournaments_path, method: :get, class: "d-flex mt-2" do |f| %>
+        <div class="row mx-auto">
+         <div class="col-sm-6 col-md-4 col-lg-2">
+           <%= f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true, size: 3 } %>
+         </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+           <%= f.select :type, options_for_select(@types), {prompt: 'Tipo de torneo', :multiple => true, size: 3 } %>
+         </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+            <%= f.number_field :max_price, placeholder: 'Precio máximo' %>
+         </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+          <input required="Fecha de Inicio" type="text" class="form-control" placeholder="Date" onfocus="(this.type='date')"/>
+         </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+           <%= f.date_field :end_date, label: 'Fecha de finalización' %>
+          </div>
+         <div class="col-sm-6 col-md-4 col-lg-2">
+            <%= f.submit "Buscar", class: "btn btn-primary", style: "background-color: #184A22;" %>
+         </div>
+       </div>
+      </div>
+     <% end %>
     <div class="row mt-5 mb-5">
   <!-- Aqui comienzan las card de tournament-->
       <%# This code displays a list of tournaments %>
