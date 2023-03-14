@@ -39,11 +39,8 @@
   </ul>
 </div>
 
-
-
-
-<div class="container ">
-  <div class="row d-flex justify-content-center">
+<div class="container">
+  <div class="row d-flex justify-content-around">
     <div class="col-12 col-lg-6">
       <% if current_user != @tournament.user %>
         <% if @tournament.available_places.positive? && user_signed_in? %>
@@ -62,36 +59,32 @@
             <% else %>
               <% @participation = Participation.find_by(user_id: current_user.id, tournament_id: @tournament.id) %>
             <% end %>
-          <%# Si la participación no está pagado muestro link de pago %>
-            <% if @participation.status == "solicitado" %>
-              <%= link_to "Pagar inscripción", payment_participation_path(@participation.id), class: "button-33" %>
-            <% elsif @participation.status == "pagado" %>
-            <div class="h5">
-              <h5>¡Ya te encuentras inscrito en este torneo!</h5>
-            </div>
-            <% end %>
+        <div class="buttons-s">
+                  <%# Si la participación no está pagado muestro link de pago %>
+                    <% if @participation.status == "solicitado" %>
+                      <%= link_to "Pagar inscripción", payment_participation_path(@participation.id), class: "button-33" %>
+                    <% elsif @participation.status == "pagado" %>
+                    <div class="h5">
+                      <h5>¡Ya te encuentras inscrito en este torneo!</h5>
+                    </div>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <%= link_to "Inscribirse", new_user_session_path, class: "button-33" %>
+                <% end %>
+              <% end %>
+
+          <%= link_to "Fixture", fixture_tournament_path(@tournament.id), class: "button-33" %>
+          <% if policy(@tournament).edit? %>
+            <%= link_to "Editar torneo", edit_tournament_path(@tournament.id), class: "button-33" %>
           <% end %>
-        <% else %>
-          <%= link_to "Inscribirse", new_user_session_path %>
-        <% end %>
-      <% end %>
-
-    <% else %>
-      <br>
-      <%= link_to "Inscribirse", new_user_session_path %>
-    <% end %>
-  <% end %>
-
-  <%= link_to "Fixture", fixture_tournament_path(@tournament.id), class: "button-33" %>
-  <% if policy(@tournament).edit? %>
-    <%= link_to "Editar torneo", edit_tournament_path(@tournament.id), class: "button-33" %>
-  <% end %>
-  <br>
-  <% if current_user != @tournament.user %>
-    <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "button-33", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
-  <% else %>
-    <%= link_to "mis chatrooms", tournament_my_chatrooms_path(@tournament.id), class: "button-33", data: { turbo_method: "post" }, style: "margin-top: 9px;" %>
-  <% end %>
-  <%= button_to "Eliminar torneo", @tournament, class: "button-33", data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
-
+          <% if current_user != @tournament.user %>
+            <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "button-33", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
+          <% else %>
+            <%= link_to "mis chatrooms", tournament_my_chatrooms_path(@tournament.id), class: "button-33", data: { turbo_method: "post" }, style: "margin-top: 9px;" %>
+          <% end %>
+          <%= button_to "Eliminar torneo", @tournament, class: "button-33", data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
+        </div>
+    </div>
+  </div>
 </div>
