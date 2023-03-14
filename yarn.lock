@@ -735,6 +735,7 @@ terser@^5.14.1:
     commander "^2.20.0"
     source-map-support "~0.5.20"
 
+
 typed.js@^2.0.132:
   version "2.0.132"
   resolved "https://registry.yarnpkg.com/typed.js/-/typed.js-2.0.132.tgz#a860cf1772aafad36486db9d25d255ab9ec9d7ad"

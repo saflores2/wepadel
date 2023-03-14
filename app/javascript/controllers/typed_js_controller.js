@@ -6,7 +6,7 @@ export default class extends Controller {
   connect() {
     console.log("subscribed to typed-js")
     new Typed(this.element, {
-      strings: ["Change your life", "Learn to code"],
+      strings: ["Encuentra los Mejores Torneos de Padel"],
       typeSpeed: 50,
       loop: true
     })
