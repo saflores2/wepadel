@@ -3,8 +3,6 @@ class TournamentsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show, :fixture]
 
   def index
-    # @tournaments = Tournament.all
-    # @tournaments = policy_scope(Tournament.all)
     @categories = ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta",
              "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"]
     @types = ["Champions League", "Americano", "Express"]
@@ -15,8 +13,6 @@ class TournamentsController < ApplicationController
     @tournaments = policy_scope(@tournaments.where("price <= (?)", params[:max_price])) if params[:max_price].present?
     @tournaments = policy_scope(@tournaments.where("start_date >= (?)", params[:start_date])) if params[:start_date].present?
     @tournaments = policy_scope(@tournaments.where("end_date <= (?)", params[:end_date])) if params[:end_date].present?
-
-
   end
 
   def show
@@ -50,15 +46,27 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
     authorize @tournament
     @participations = Participation.where(tournament_id: @tournament.id, status: "pagado")
-    if @tournament.type == "Champions League"
+    if @tournament.type == "Champions League" && @participations.size == 16
       @matches = Match.where(tournament_id: @tournament.id)
       create_matches_champions_league if @matches.size.zero?
       uncompleted_matches = Match.where(tournament_id: @tournament.id, winner_id: nil)
       if uncompleted_matches.size == 7
         update_round4_champions_league
+      elsif uncompleted_matches.size == 3
+        update_round5_champions_league
+      elsif uncompleted_matches.size == 1
+        update_round6_champions_league
+      end
+    elsif @tournament.type == "Express" && @participations.size == 8
+      @matches = Match.where(tournament_id: @tournament.id)
+      create_matches_express if @matches.size.zero?
+      uncompleted_matches = Match.where(tournament_id: @tournament.id, winner_id: nil)
+      if uncompleted_matches.size == 6
+        update_round4_express
+      elsif uncompleted_matches.size == 2
+        update_round5_express
       end
     end
-    # @matches = Match.where(tournament_id: @tournament.id)
   end
 
   def edit
@@ -88,7 +96,8 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
   end
 
-  def create_matches_champions_league
+  #CHAMPIONS LEAGUE
+  def create_matches_champions_league_round1
     # Ronda 1
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 1, first_team_id: @participations[0].id, second_team_id: @participations[1].id, first_team_name: "Pareja 1", second_team_name: "Pareja 2")
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 2, first_team_id: @participations[2].id, second_team_id: @participations[3].id, first_team_name: "Pareja 3", second_team_name: "Pareja 4")
@@ -98,6 +107,9 @@ class TournamentsController < ApplicationController
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 6, first_team_id: @participations[10].id, second_team_id: @participations[11].id, first_team_name: "Pareja 11", second_team_name: "Pareja 12")
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 7, first_team_id: @participations[12].id, second_team_id: @participations[13].id, first_team_name: "Pareja 13", second_team_name: "Pareja 14")
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 8, first_team_id: @participations[14].id, second_team_id: @participations[15].id, first_team_name: "Pareja 15", second_team_name: "Pareja 16")
+  end
+
+  def create_matches_champions_league_round2
     # Ronda 2
     Match.create!(tournament_id: @tournament.id, round: 2, match_number: 9, first_team_id: @participations[0].id, second_team_id: @participations[2].id, first_team_name: "Pareja 1", second_team_name: "Pareja 3")
     Match.create!(tournament_id: @tournament.id, round: 2, match_number: 10, first_team_id: @participations[1].id, second_team_id: @participations[3].id, first_team_name: "Pareja 2", second_team_name: "Pareja 4")
@@ -107,7 +119,9 @@ class TournamentsController < ApplicationController
     Match.create!(tournament_id: @tournament.id, round: 2, match_number: 14, first_team_id: @participations[9].id, second_team_id: @participations[11].id, first_team_name: "Pareja 10", second_team_name: "Pareja 12")
     Match.create!(tournament_id: @tournament.id, round: 2, match_number: 15, first_team_id: @participations[12].id, second_team_id: @participations[14].id, first_team_name: "Pareja 13", second_team_name: "Pareja 15")
     Match.create!(tournament_id: @tournament.id, round: 2, match_number: 16, first_team_id: @participations[13].id, second_team_id: @participations[15].id, first_team_name: "Pareja 14", second_team_name: "Pareja 16")
-    # Ronda 3
+  end
+
+  def create_matches_champions_league_round3
     Match.create!(tournament_id: @tournament.id, round: 3, match_number: 17, first_team_id: @participations[0].id, second_team_id: @participations[3].id, first_team_name: "Pareja 1", second_team_name: "Pareja 4")
     Match.create!(tournament_id: @tournament.id, round: 3, match_number: 18, first_team_id: @participations[2].id, second_team_id: @participations[1].id, first_team_name: "Pareja 3", second_team_name: "Pareja 2")
     Match.create!(tournament_id: @tournament.id, round: 3, match_number: 19, first_team_id: @participations[4].id, second_team_id: @participations[7].id, first_team_name: "Pareja 5", second_team_name: "Pareja 8")
@@ -116,47 +130,249 @@ class TournamentsController < ApplicationController
     Match.create!(tournament_id: @tournament.id, round: 3, match_number: 22, first_team_id: @participations[10].id, second_team_id: @participations[9].id, first_team_name: "Pareja 11", second_team_name: "Pareja 10")
     Match.create!(tournament_id: @tournament.id, round: 3, match_number: 23, first_team_id: @participations[12].id, second_team_id: @participations[15].id, first_team_name: "Pareja 13", second_team_name: "Pareja 16")
     Match.create!(tournament_id: @tournament.id, round: 3, match_number: 24, first_team_id: @participations[14].id, second_team_id: @participations[13].id, first_team_name: "Pareja 15", second_team_name: "Pareja 14")
-    # Ronda 4 Cuartos de Final
+  end
+
+  def create_matches_champions_league_round4
     Match.create!(tournament_id: @tournament.id, round: 4, match_number: 25, first_team_name: "1° Grupo 1", second_team_name: "2° Grupo 2")
     Match.create!(tournament_id: @tournament.id, round: 4, match_number: 26, first_team_name: "1° Grupo 2", second_team_name: "2° Grupo 1")
     Match.create!(tournament_id: @tournament.id, round: 4, match_number: 27, first_team_name: "1° Grupo 3", second_team_name: "2° Grupo 4")
     Match.create!(tournament_id: @tournament.id, round: 4, match_number: 28, first_team_name: "1° Grupo 4", second_team_name: "2° Grupo 3")
-    # Ronda 5 Semi Final
+  end
+
+  def create_matches_champions_league_round5
     Match.create!(tournament_id: @tournament.id, round: 5, match_number: 29, first_team_name: "Ganador 1°G1-2°G2", second_team_name: "Ganador 1°G3-2°G4")
     Match.create!(tournament_id: @tournament.id, round: 5, match_number: 30, first_team_name: "Ganador 1°G2-2°G1", second_team_name: "Ganador 1°G4-2°G3")
-    # Ronda 6 Final
+  end
+
+  def create_matches_champions_league_round6
     Match.create!(tournament_id: @tournament.id, round: 6, match_number: 31, first_team_name: "Ganador Primera Semi Final", second_team_name: "Ganador Segunda Semi Final")
   end
 
+  def create_matches_champions_league
+    # Fase de Grupos
+    create_matches_champions_league_round1
+    create_matches_champions_league_round2
+    create_matches_champions_league_round3
+    # Ronda 4 Cuartos de Final
+    create_matches_champions_league_round4
+    # Ronda 5 Semi Final
+    create_matches_champions_league_round5
+    # Ronda 6 Final
+    create_matches_champions_league_round6
+  end
+
+  def get_team_score(id)
+    first_matches = Match.where(tournament_id: @tournament.id, first_team_id: id)
+    second_matches = Match.where(tournament_id: @tournament.id, second_team_id: id)
+    win_matches = Match.where(tournament_id: @tournament.id, winner_id: id).size
+    win_sets = 0
+    win_games = 0
+    first_matches.each do |m|
+      sets = Game.where(match_id: m.id)
+      sets.each do |s|
+        win_games += s.games_first_team
+        win_sets += 1 if s.games_first_team > s.games_second_team
+      end
+    end
+    second_matches.each do |m|
+      sets = Game.where(match_id: m.id)
+      sets.each do |s|
+        win_games += s.games_second_team
+        win_sets += 1 if s.games_first_team < s.games_second_team
+      end
+    end
+    # return { matches: win_matches, sets: win_sets, games: win_games }
+    return [win_matches, win_sets, win_games, id]
+  end
+
+  def get_group_winners(id1, id2, id3, id4)
+    couple1 = get_team_score(id1)
+    couple2 = get_team_score(id2)
+    couple3 = get_team_score(id3)
+    couple4 = get_team_score(id4)
+    scores = [couple1, couple2, couple3, couple4]
+    ordered_scores = scores.sort_by { |c| [c[0], c[1], c[2]] }.reverse
+    #RESOLVER PROBLEMA DE EMPATES
+    winner1_id = ordered_scores.first.last
+    winner2_id = ordered_scores[1].last
+    winner3_id = ordered_scores[2].last
+    winner4_id = ordered_scores[3].last
+    if @tournament.type == "Express"
+      return winner1_id, winner2_id, winner3_id, winner4_id
+    elsif @tournament.type == "Champions League"
+      return winner1_id, winner2_id
+    end
+  end
+
   def update_round4_champions_league
-    # Group 1
-    pair1_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[0].id).size
-    pair2_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[1].id).size
-    pair3_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[2].id).size
-    pair4_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[3].id).size
-    group_1 = [pair1_wins, pair2_wins, pair2_wins, pair4_wins].sort.reverse
+    id1 = @participations[0].id
+    id2 = @participations[1].id
+    id3 = @participations[2].id
+    id4 = @participations[3].id
+    winner1_g1, winner2_g1 = get_group_winners(id1, id2, id3, id4)
 
-    # Group 2
-    pair5_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[4].id).size
-    pair6_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[5].id).size
-    pair7_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[6].id).size
-    pair8_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[7].id).size
-    group_2 = [pair5_wins, pair6_wins, pair7_wins, pair8_wins].sort.reverse
+    id1 = @participations[4].id
+    id2 = @participations[5].id
+    id3 = @participations[6].id
+    id4 = @participations[7].id
+    winner1_g2, winner2_g2 = get_group_winners(id1, id2, id3, id4)
 
-    # Group 3
-    pair9_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[8].id).size
-    pair10_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[9].id).size
-    pair11_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[10].id).size
-    pair12_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[11].id).size
-    group_3 = [pair9_wins, pair10_wins, pair11_wins, pair12_wins].sort.reverse
+    id1 = @participations[8].id
+    id2 = @participations[9].id
+    id3 = @participations[10].id
+    id4 = @participations[11].id
+    winner1_g3, winner2_g3 = get_group_winners(id1, id2, id3, id4)
 
-    # Group 4
-    pair13_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[12].id).size
-    pair14_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[13].id).size
-    pair15_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[14].id).size
-    pair16_wins = Match.where(tournament_id: @tournament.id, winner_id: @participations[15].id).size
-    group_4 = [pair13_wins, pair14_wins, pair15_wins, pair16_wins].sort.reverse
-    # raise
+    id1 = @participations[12].id
+    id2 = @participations[13].id
+    id3 = @participations[14].id
+    id4 = @participations[15].id
+    winner1_g4, winner2_g4 = get_group_winners(id1, id2, id3, id4)
 
+    m25 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 25).first
+    m25.first_team_id = winner1_g1
+    m25.second_team_id = winner2_g2
+    m25.save
+
+    m26 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 26).first
+    m26.first_team_id = winner1_g2
+    m26.second_team_id = winner2_g1
+    m26.save
+
+    m27 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 27).first
+    m27.first_team_id = winner1_g3
+    m27.second_team_id = winner2_g4
+    m27.save
+
+    m28 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 28).first
+    m28.first_team_id = winner1_g4
+    m28.second_team_id = winner2_g3
+    m28.save
+  end
+
+  def update_round5_champions_league
+    m25 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 25).first
+    m26 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 26).first
+    m27 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 27).first
+    m28 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 28).first
+
+    m29 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 29).first
+    m29.first_team_id = m25.winner_id
+    m29.second_team_id = m27.winner_id
+    m29.save
+
+    m30 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 30).first
+    m30.first_team_id = m26.winner_id
+    m30.second_team_id = m28.winner_id
+    m30.save
+  end
+
+  def update_round6_champions_league
+    m29 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 29).first
+    m30 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 30).first
+
+    m31 = Match.where(tournament_id: @tournament.id, round: 6, match_number: 31).first
+    m31.first_team_id = m29.winner_id
+    m31.second_team_id = m30.winner_id
+    m31.save
+  end
+
+  #EXPRESS
+  def create_matches_express_round1
+    Match.create!(tournament_id: @tournament.id, round: 1, match_number: 1, first_team_id: @participations[0].id, second_team_id: @participations[1].id, first_team_name: "Pareja 1", second_team_name: "Pareja 2")
+    Match.create!(tournament_id: @tournament.id, round: 1, match_number: 2, first_team_id: @participations[2].id, second_team_id: @participations[3].id, first_team_name: "Pareja 3", second_team_name: "Pareja 4")
+    Match.create!(tournament_id: @tournament.id, round: 1, match_number: 3, first_team_id: @participations[4].id, second_team_id: @participations[5].id, first_team_name: "Pareja 5", second_team_name: "Pareja 6")
+    Match.create!(tournament_id: @tournament.id, round: 1, match_number: 4, first_team_id: @participations[6].id, second_team_id: @participations[7].id, first_team_name: "Pareja 7", second_team_name: "Pareja 8")
+  end
+
+  def create_matches_express_round2
+    Match.create!(tournament_id: @tournament.id, round: 2, match_number: 5, first_team_id: @participations[0].id, second_team_id: @participations[2].id, first_team_name: "Pareja 1", second_team_name: "Pareja 3")
+    Match.create!(tournament_id: @tournament.id, round: 2, match_number: 6, first_team_id: @participations[1].id, second_team_id: @participations[3].id, first_team_name: "Pareja 2", second_team_name: "Pareja 4")
+    Match.create!(tournament_id: @tournament.id, round: 2, match_number: 7, first_team_id: @participations[4].id, second_team_id: @participations[6].id, first_team_name: "Pareja 5", second_team_name: "Pareja 7")
+    Match.create!(tournament_id: @tournament.id, round: 2, match_number: 8, first_team_id: @participations[5].id, second_team_id: @participations[7].id, first_team_name: "Pareja 6", second_team_name: "Pareja 8")
+  end
+
+  def create_matches_express_round3
+    Match.create!(tournament_id: @tournament.id, round: 3, match_number: 9, first_team_id: @participations[0].id, second_team_id: @participations[3].id, first_team_name: "Pareja 1", second_team_name: "Pareja 4")
+    Match.create!(tournament_id: @tournament.id, round: 3, match_number: 10, first_team_id: @participations[2].id, second_team_id: @participations[1].id, first_team_name: "Pareja 3", second_team_name: "Pareja 2")
+    Match.create!(tournament_id: @tournament.id, round: 3, match_number: 11, first_team_id: @participations[4].id, second_team_id: @participations[7].id, first_team_name: "Pareja 5", second_team_name: "Pareja 8")
+    Match.create!(tournament_id: @tournament.id, round: 3, match_number: 12, first_team_id: @participations[6].id, second_team_id: @participations[5].id, first_team_name: "Pareja 7", second_team_name: "Pareja 6")
+  end
+
+  def create_matches_express_round4
+    Match.create!(tournament_id: @tournament.id, round: 4, match_number: 13, first_team_name: "1° Grupo 1", second_team_name: "2° Grupo 2")
+    Match.create!(tournament_id: @tournament.id, round: 4, match_number: 14, first_team_name: "1° Grupo 2", second_team_name: "2° Grupo 1")
+    Match.create!(tournament_id: @tournament.id, round: 4, match_number: 15, first_team_name: "3° Grupo 1", second_team_name: "4° Grupo 2")
+    Match.create!(tournament_id: @tournament.id, round: 4, match_number: 16, first_team_name: "3° Grupo 2", second_team_name: "4° Grupo 1")
+  end
+
+  def create_matches_express_round5
+    Match.create!(tournament_id: @tournament.id, round: 5, match_number: 17, first_team_name: "Ganador 1°G1-2°G2", second_team_name: "Ganador 1°G2-2°G1")
+    Match.create!(tournament_id: @tournament.id, round: 5, match_number: 18, first_team_name: "Perdedor 1°G1-2°G2", second_team_name: "Perdedor 1°G2-2°G1")
+    Match.create!(tournament_id: @tournament.id, round: 5, match_number: 19, first_team_name: "Ganador 3°G1-4°G2", second_team_name: "Ganador 3°G2-4°G1")
+    Match.create!(tournament_id: @tournament.id, round: 5, match_number: 20, first_team_name: "Perdedor 3°G1-4°G2", second_team_name: "Perdedor 3°G2-4°G1")
+  end
+
+  def update_round4_express
+    id1 = @participations[0].id
+    id2 = @participations[1].id
+    id3 = @participations[2].id
+    id4 = @participations[3].id
+    winner1_g1, winner2_g1, winner3_g1, winner4_g1 = get_group_winners(id1, id2, id3, id4)
+
+    id1 = @participations[4].id
+    id2 = @participations[5].id
+    id3 = @participations[6].id
+    id4 = @participations[7].id
+    winner1_g2, winner2_g2, winner3_g2, winner4_g2 = get_group_winners(id1, id2, id3, id4)
+
+    m13 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 13).first
+    m13.first_team_id = winner1_g1
+    m13.second_team_id = winner2_g2
+    m13.save
+
+    m14 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 14).first
+    m14.first_team_id = winner1_g2
+    m14.second_team_id = winner2_g1
+    m14.save
+
+    m15 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 15).first
+    m15.first_team_id = winner3_g1
+    m15.second_team_id = winner4_g2
+    m15.save
+
+    m16 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 16).first
+    m16.first_team_id = winner3_g2
+    m16.second_team_id = winner4_g1
+    m16.save
+  end
+
+  def update_round5_express
+    m13 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 13).first
+    m14 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 14).first
+
+    m17 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 17).first
+    m17.first_team_id = m13.winner_id
+    m17.second_team_id = m14.winner_id
+    m17.save
+
+    m15 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 15).first
+    m16 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 16).first
+
+    m18 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 18).first
+    m18.first_team_id = m15.winner_id
+    m18.second_team_id = m16.winner_id
+    m18.save
+  end
+
+  def create_matches_express
+    # Fase de Grupos
+    create_matches_express_round1
+    create_matches_express_round2
+    create_matches_express_round3
+    # Ronda 4 Semi Final
+    create_matches_express_round4
+    # Ronda 6 Final
+    create_matches_express_round5
   end
 end

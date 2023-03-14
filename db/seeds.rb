@@ -173,4 +173,15 @@ p16 = Participation.create!(tournament_id: 1, user_id: 17, status: "pagado")
 tournament1.available_places = 0
 tournament1.save
 
+p1 = Participation.create!(tournament_id: 3, user_id: 1, status: "pagado")
+p2 = Participation.create!(tournament_id: 3, user_id: 2, status: "pagado")
+p3 = Participation.create!(tournament_id: 3, user_id: 4, status: "pagado")
+p4 = Participation.create!(tournament_id: 3, user_id: 5, status: "pagado")
+p5 = Participation.create!(tournament_id: 3, user_id: 6, status: "pagado")
+p6 = Participation.create!(tournament_id: 3, user_id: 7, status: "pagado")
+p7 = Participation.create!(tournament_id: 3, user_id: 8, status: "pagado")
+p8 = Participation.create!(tournament_id: 3, user_id: 9, status: "pagado")
+tournament1.available_places = 0
+tournament1.save
+
 puts "Participations creadas"
