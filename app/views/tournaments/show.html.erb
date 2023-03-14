@@ -1,64 +1,88 @@
-<div class="container">
-  <h1><%= @tournament.name %></h1>
-  <p>Precio por pareja: <%= @tournament.price %></p>
-  <p>Lugar: <%= @tournament.ubication_name %></p>
-  <p>Dirección: <%= @tournament.ubication_address %></p>
-  <p>Fecha y hora de inicio: <%= @tournament.start_date.strftime("%d/%m/%y %H:%M") %></p>
-  <p>Fecha y hora de término: <%= @tournament.end_date.strftime("%d/%m/%y %H:%M") %></p>
-  <p>Duración por día: <%= @tournament.duration %></p>
-  <p>Tipo de torneo: <%= @tournament.type %></p>
-  <p>Categoría: <%= @tournament.category %></p>
-  <p>Partidos mínimos a jugar: <%= @tournament.min_matches %></p>
-  <p>Partidos máximos a jugar:<%= @tournament.max_matches %></p>
-  <p>Cupos totales: <%= @tournament.places %></p>
-  <p>Cupos disponibles: <%= @tournament.available_places %></p>
-  <p>Duración de partidos: <%= @tournament.match_duration %></p>
-  <p>Premios: <%= @tournament.awards %></p>
-  <p>Otras especificaciones: <%= @tournament.other %></p>
-  <% if @tournament.photo.key != nil %>
-  <% end %>
+<div class="card-show">
+  <div class="thumbnail">
+    <%= cl_image_tag @tournament.photo.key, width: 530, height: 320 %>
+  </div>
+  <div class="right">
+    <h1><%= @tournament.name %></h1>
+    <div class="separator"></div>
+    <p><strong>Fecha y hora de inicio:</strong> <%= @tournament.start_date.strftime("%d/%m/%y %H:%M") %></p>
+    <p><strong>Fecha y hora de término:</strong> <%= @tournament.end_date.strftime("%d/%m/%y %H:%M") %></p>
+    <p><strong>Duración por día:</strong> <%= @tournament.duration %></p>
+    <p><strong>Tipo de torneo:</strong> <%= @tournament.type %></p>
+    <p><strong>Categoría:</strong> <%= @tournament.category %></p>
+    <p><strong>Partidos mínimos a jugar:</strong> <%= @tournament.min_matches %></p>
+    <p><strong>Partidos máximos a jugar:</strong> <%= @tournament.max_matches %></p>
+    <p><strong>Cupos totales:</strong> <%= @tournament.places %></p>
+    <p><strong>Cupos disponibles:</strong> <%= @tournament.available_places %></p>
+    <p><strong>Duración de partidos:</strong> <%= @tournament.match_duration %></p>
+    <p><strong>Premios:</strong> <%= @tournament.awards %></p>
+    <p><strong>Otras especificaciones:</strong> <%= @tournament.other %></p>
+    <% if @tournament.photo.key != nil %>
+    <% end %>
+  </div>
+  <ul style="margin-top: -120px; margin-left: 20px">
+    <li>
+      <h6>
+        <strong>Precio por pareja:</strong> <%= number_to_currency(@tournament.price, precision: 0, unit: 'CLP $ ', delimiter: '.') %>
+      </h6>
+    </li>
+    <li>
+      <h6>
+        <strong>Lugar:</strong> <%= @tournament.ubication_name %>
+      </h6>
+    </li>
+    <li>
+      <h6>
+        <strong>Dirección:</strong> <%= @tournament.ubication_address %>
+      </h6>
+    </li>
+  </ul>
+</div>
 
 
-  <% if current_user != @tournament.user %>
-    <% if @tournament.available_places.positive? && user_signed_in? %>
-    <%# Si no tengo alguna participación en este torneo y no soy el organizador muestro el formulario de inscripción %>
-      <% if (current_user.tournaments + current_user.partner_tournaments).include?(@tournament) == false %>
-        <%= simple_form_for [@tournament, @participation], url: tournament_participations_path(@tournament.id), method: :post do |f| %>
-          <%= f.input :partner_email, :label => "Ingresa el correo de tu pareja de juego si tiene una cuenta en wePadel: " %>
-          <%= f.submit "Inscribirse" %>
-        <% end %>
-    <%# Si ya estoy inscrito busco la participation correspondiente %>
-      <% else %>
-        <% if Participation.find_by(user_id: current_user.id, tournament_id: @tournament.id).nil?%>
-          <% @participation = Participation.find_by(partner_id: current_user.id, tournament_id: @tournament.id) %>
+
+
+<div class="container ">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-6">
+      <% if current_user != @tournament.user %>
+        <% if @tournament.available_places.positive? && user_signed_in? %>
+          <%# Si no tengo alguna participación en este torneo y no soy el organizador muestro el formulario de inscripción %>
+          <% if (current_user.tournaments + current_user.partner_tournaments).include?(@tournament) == false %>
+            <%= simple_form_for [@tournament, @participation], url: tournament_participations_path(@tournament.id), method: :post do |f| %>
+            <%= f.input :partner_email, :placeholder => "Ingresa el correo de tu Pareja" %>
+              <div style="text-align: center;">
+                <%= f.submit "Inscribirse", class: "boton-ins", style: "background-color: green; color: white; box-shadow: 2px 2px 4px rgba(0,0,0,0.4); margin-top: -40px;", onmouseover: "this.style.boxShadow='4px 4px 8px rgba(0,0,0,0.6)';", onmouseout: "this.style.boxShadow='2px 2px 4px rgba(0,0,0,0.4)';" %>
+              </div>
+            <% end %>
+          <%# Si ya estoy inscrito busco la participation correspondiente %>
+          <% else %>
+            <% if Participation.find_by(user_id: current_user.id, tournament_id: @tournament.id).nil?%>
+              <% @participation = Participation.find_by(partner_id: current_user.id, tournament_id: @tournament.id) %>
+            <% else %>
+              <% @participation = Participation.find_by(user_id: current_user.id, tournament_id: @tournament.id) %>
+            <% end %>
+          <%# Si la participación no está pagado muestro link de pago %>
+            <% if @participation.status == "solicitado" %>
+              <%= link_to "Pagar inscripción", payment_participation_path(@participation.id), class: "button-33" %>
+            <% elsif @participation.status == "pagado" %>
+            <div class="h5">
+              <h5>¡Ya te encuentras inscrito en este torneo!</h5>
+            </div>
+            <% end %>
+          <% end %>
         <% else %>
-          <% @participation = Participation.find_by(user_id: current_user.id, tournament_id: @tournament.id) %>
-        <% end %>
-    <%# Si la participación no está pagado muestro link de pago %>
-        <% if @participation.status == "solicitado" %>
-          <%= link_to "Pagar inscripción", payment_participation_path(@participation.id) %>
-        <% elsif @participation.status == "pagado" %>
-          <h5>¡Ya te encuentras inscrito en este torneo!</h5>
+          <%= link_to "Inscribirse", new_user_session_path %>
         <% end %>
       <% end %>
-    <% else %>
-      <br>
-      <%= link_to "Inscribirse", new_user_session_path %>
-    <% end %>
-  <% end %>
-
-  <br>
-  <%= link_to "Back to tournaments", tournaments_path %>
-  <br>
-  <%= link_to "Fixture", fixture_tournament_path(@tournament.id)%>
-  <br>
-  <% if policy(@tournament).edit? %>
-    <%= link_to "Editar torneo", edit_tournament_path(@tournament.id) %>
-    <br>
-  <% end %>
-  <br>
-  <% if current_user != @tournament.user %>
-    <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "btn btn-primary", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
-  <% end %>
-  <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
+      <%= link_to "Fixture", fixture_tournament_path(@tournament.id), class: "button-33" %>
+      <% if policy(@tournament).edit? %>
+        <%= link_to "Editar torneo", edit_tournament_path(@tournament.id) %>
+      <% end %>
+      <% if current_user != @tournament.user %>
+        <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "button-33", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
+      <% end %>
+      <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
+    </div>
+  </div>
 </div>
