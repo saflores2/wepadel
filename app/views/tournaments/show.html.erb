@@ -75,14 +75,23 @@
           <%= link_to "Inscribirse", new_user_session_path %>
         <% end %>
       <% end %>
-      <%= link_to "Fixture", fixture_tournament_path(@tournament.id), class: "button-33" %>
-      <% if policy(@tournament).edit? %>
-        <%= link_to "Editar torneo", edit_tournament_path(@tournament.id) %>
-      <% end %>
-      <% if current_user != @tournament.user %>
-        <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "button-33", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
-      <% end %>
-      <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
-    </div>
-  </div>
+
+    <% else %>
+      <br>
+      <%= link_to "Inscribirse", new_user_session_path %>
+    <% end %>
+  <% end %>
+
+  <%= link_to "Fixture", fixture_tournament_path(@tournament.id), class: "button-33" %>
+  <% if policy(@tournament).edit? %>
+    <%= link_to "Editar torneo", edit_tournament_path(@tournament.id), class: "button-33" %>
+  <% end %>
+  <br>
+  <% if current_user != @tournament.user %>
+    <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "button-33", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
+  <% else %>
+    <%= link_to "mis chatrooms", tournament_my_chatrooms_path(@tournament.id), class: "button-33", data: { turbo_method: "post" }, style: "margin-top: 9px;" %>
+  <% end %>
+  <%= button_to "Eliminar torneo", @tournament, class: "button-33", data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
+
 </div>

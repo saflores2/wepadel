@@ -2,6 +2,7 @@ class Tournament < ApplicationRecord
   belongs_to :user
   self.inheritance_column = :foo
   has_many :participations, dependent: :destroy
+  has_many :chatrooms, dependent: :destroy
   has_one_attached :photo
   validates :name, :start_date, :end_date, :type, :category, :ubication_address, :price, :places, presence: true
   validates_inclusion_of :type, in: ["Champions League", "Americano", "Express", "Otro"]
