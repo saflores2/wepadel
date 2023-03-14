@@ -735,6 +735,11 @@ terser@^5.14.1:
     commander "^2.20.0"
     source-map-support "~0.5.20"
 
+type.js@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/type.js/-/type.js-0.0.1.tgz#566af8056e004a8e77fe75bdc4a09e8db6dfcd01"
+  integrity sha512-0h595G4radjv0becIPEBYgHJTZbbsG0zT6NlU26MzU1LWGZ+f6gJLkfLhBBpynT48+92SC+R7KIla9wnVZ0PLA==
+
 update-browserslist-db@^1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.10.tgz#0f54b876545726f17d00cd9a2561e6dade943ff3"
