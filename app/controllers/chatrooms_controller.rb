@@ -17,4 +17,10 @@ class ChatroomsController < ApplicationController
     @message = Message.new
     authorize @chatroom
   end
+
+  # def my_chatrooms
+  #   # has many user :trhoug user
+  #   @chatroom.users
+  #   @chatrooms = Chatroom
+  # end
 end

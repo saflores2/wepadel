@@ -46,26 +46,17 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
     authorize @tournament
     @participations = Participation.where(tournament_id: @tournament.id, status: "pagado")
-    if @tournament.type == "Champions League" && @participations.size == 16
-      @matches = Match.where(tournament_id: @tournament.id)
-      create_matches_champions_league if @matches.size.zero?
-      uncompleted_matches = Match.where(tournament_id: @tournament.id, winner_id: nil)
-      if uncompleted_matches.size == 7
-        update_round4_champions_league
-      elsif uncompleted_matches.size == 3
-        update_round5_champions_league
-      elsif uncompleted_matches.size == 1
-        update_round6_champions_league
-      end
-    elsif @tournament.type == "Express" && @participations.size == 8
-      @matches = Match.where(tournament_id: @tournament.id)
-      create_matches_express if @matches.size.zero?
-      uncompleted_matches = Match.where(tournament_id: @tournament.id, winner_id: nil)
-      if uncompleted_matches.size == 6
-        update_round4_express
-      elsif uncompleted_matches.size == 2
-        update_round5_express
-      end
+    @fixture_available = false
+    if @tournament.type == "Champions League" && @participations.size == 16 && @tournament.available_places.zero?
+      @fixture_available = true
+      complete_matches_champions_league
+    elsif @tournament.type == "Express" && @participations.size == 8 && @tournament.available_places.zero?
+      complete_matches_express
+      @fixture_available = true
+    elsif @tournament.type == "Americano" && @participations.size.even? && @participations.size <= 8 && @tournament.available_places.zero?
+      @winners = false
+      complete_matches_american
+      @fixture_available = true
     end
   end
 
@@ -97,8 +88,20 @@ class TournamentsController < ApplicationController
   end
 
   #CHAMPIONS LEAGUE
+  def complete_matches_champions_league
+    @matches = Match.where(tournament_id: @tournament.id)
+    create_matches_champions_league if @matches.size.zero?
+    uncompleted_matches = Match.where(tournament_id: @tournament.id, winner_id: nil)
+    if uncompleted_matches.size == 7
+      update_round4_champions_league
+    elsif uncompleted_matches.size == 3
+      update_round5_champions_league
+    elsif uncompleted_matches.size == 1
+      update_round6_champions_league
+    end
+  end
+
   def create_matches_champions_league_round1
-    # Ronda 1
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 1, first_team_id: @participations[0].id, second_team_id: @participations[1].id, first_team_name: "Pareja 1", second_team_name: "Pareja 2")
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 2, first_team_id: @participations[2].id, second_team_id: @participations[3].id, first_team_name: "Pareja 3", second_team_name: "Pareja 4")
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 3, first_team_id: @participations[4].id, second_team_id: @participations[5].id, first_team_name: "Pareja 5", second_team_name: "Pareja 6")
@@ -110,7 +113,6 @@ class TournamentsController < ApplicationController
   end
 
   def create_matches_champions_league_round2
-    # Ronda 2
     Match.create!(tournament_id: @tournament.id, round: 2, match_number: 9, first_team_id: @participations[0].id, second_team_id: @participations[2].id, first_team_name: "Pareja 1", second_team_name: "Pareja 3")
     Match.create!(tournament_id: @tournament.id, round: 2, match_number: 10, first_team_id: @participations[1].id, second_team_id: @participations[3].id, first_team_name: "Pareja 2", second_team_name: "Pareja 4")
     Match.create!(tournament_id: @tournament.id, round: 2, match_number: 11, first_team_id: @participations[4].id, second_team_id: @participations[6].id, first_team_name: "Pareja 5", second_team_name: "Pareja 7")
@@ -181,7 +183,6 @@ class TournamentsController < ApplicationController
         win_sets += 1 if s.games_first_team < s.games_second_team
       end
     end
-    # return { matches: win_matches, sets: win_sets, games: win_games }
     return [win_matches, win_sets, win_games, id]
   end
 
@@ -278,6 +279,17 @@ class TournamentsController < ApplicationController
   end
 
   #EXPRESS
+  def complete_matches_express
+    @matches = Match.where(tournament_id: @tournament.id)
+    create_matches_express if @matches.size.zero?
+    uncompleted_matches = Match.where(tournament_id: @tournament.id, winner_id: nil)
+    if uncompleted_matches.size == 8
+      update_round4_express
+    elsif uncompleted_matches.size == 4
+      update_round5_express
+    end
+  end
+
   def create_matches_express_round1
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 1, first_team_id: @participations[0].id, second_team_id: @participations[1].id, first_team_name: "Pareja 1", second_team_name: "Pareja 2")
     Match.create!(tournament_id: @tournament.id, round: 1, match_number: 2, first_team_id: @participations[2].id, second_team_id: @participations[3].id, first_team_name: "Pareja 3", second_team_name: "Pareja 4")
@@ -356,13 +368,27 @@ class TournamentsController < ApplicationController
     m17.second_team_id = m14.winner_id
     m17.save
 
+    first_looser = m13.second_team_id == m13.winner_id ? m13.first_team_id : m13.second_team_id
+    second_looser = m14.second_team_id == m14.winner_id ? m14.first_team_id : m14.second_team_id
+    m18 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 18).first
+    m18.first_team_id = first_looser
+    m18.second_team_id = second_looser
+    m18.save
+
     m15 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 15).first
     m16 = Match.where(tournament_id: @tournament.id, round: 4, match_number: 16).first
 
-    m18 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 18).first
-    m18.first_team_id = m15.winner_id
-    m18.second_team_id = m16.winner_id
-    m18.save
+    m19 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 19).first
+    m19.first_team_id = m15.winner_id
+    m19.second_team_id = m16.winner_id
+    m19.save
+
+    first_looser = m15.second_team_id == m15.winner_id ? m15.first_team_id : m15.second_team_id
+    second_looser = m16.second_team_id == m16.winner_id ? m16.first_team_id : m16.second_team_id
+    m20 = Match.where(tournament_id: @tournament.id, round: 5, match_number: 20).first
+    m20.first_team_id = first_looser
+    m20.second_team_id = second_looser
+    m20.save
   end
 
   def create_matches_express
@@ -374,5 +400,55 @@ class TournamentsController < ApplicationController
     create_matches_express_round4
     # Ronda 6 Final
     create_matches_express_round5
+  end
+
+  #AMERICANO
+  def all_vs_all_game(players)
+    case players
+    when 2
+      result = [[[1, 2]]]
+    when 4
+      result = [[[1, 3], [2, 4]], [[1, 4], [2, 3]], [[1, 2], [3, 4]]]
+    when 6
+      result = [[[1, 3], [2, 6], [4, 5]], [[1, 2], [3, 4], [5, 6]], [[1, 5], [2, 3], [4, 6]], [[1, 4], [2, 5], [3, 6]], [[1, 6], [2, 4], [3, 5]]]
+    when 8
+      result = [[[1, 8], [2, 7], [3, 6], [4, 5]], [[1, 6], [2, 4], [3, 7], [5, 8]], [[1, 7], [2, 5], [3, 4], [6, 8]], [[1, 5], [2, 3], [4, 6], [7, 8]], [[1, 2], [3, 8], [4, 7], [5, 6]], [[1, 3], [2, 6], [4, 8], [5, 7]], [[1, 4], [2, 8], [3, 5], [6, 7]]]
+    end
+    result
+  end
+
+  def create_matches_american
+    all_games = all_vs_all_game(@participations.size)
+    match_number = 1
+    round_number = 1
+    all_games.each do |round|
+      round.each do |match|
+        Match.create!(tournament_id: @tournament.id, round: round_number, match_number: match_number, first_team_id: @participations[match[0]-1].id, second_team_id: @participations[match[1]-1].id, first_team_name: "Pareja #{match[0]}", second_team_name: "Pareja #{match[1]}")
+        match_number += 1
+      end
+      round_number += 1
+    end
+  end
+
+  def complete_matches_american
+    @matches = Match.where(tournament_id: @tournament.id)
+    create_matches_american if @matches.size.zero?
+    uncompleted_matches = Match.where(tournament_id: @tournament.id, winner_id: nil)
+    if uncompleted_matches.size.zero?
+      scores = []
+      (0...@participations.size).to_a.each do |num|
+        id = @participations[num].id
+        score = get_team_score(id)
+        scores << score
+      end
+      ordered_scores = scores.sort_by { |c| [c[0], c[1], c[2]] }.reverse
+      winner1_id = ordered_scores.first.last
+      winner2_id = ordered_scores[1].last
+      winner3_id = ordered_scores[2].last
+      @winner1 = Participation.find(winner1_id)
+      @winner2 = Participation.find(winner2_id)
+      @winner3 = Participation.find(winner3_id)
+      @winners = true
+    end
   end
 end
