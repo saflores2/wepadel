@@ -65,15 +65,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_14_142325) do
 
   create_table "matches", force: :cascade do |t|
     t.bigint "tournament_id", null: false
+    t.bigint "first_team_id"
+    t.bigint "second_team_id"
     t.integer "round"
     t.integer "match_number"
     t.bigint "winner_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "first_team_name"
     t.string "second_team_name"
-    t.bigint "first_team_id"
-    t.bigint "second_team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["first_team_id"], name: "index_matches_on_first_team_id"
     t.index ["second_team_id"], name: "index_matches_on_second_team_id"
     t.index ["tournament_id"], name: "index_matches_on_tournament_id"
@@ -93,11 +93,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_14_142325) do
   create_table "participations", force: :cascade do |t|
     t.bigint "tournament_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "partner_id"
     t.string "partner_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+    t.bigint "partner_id"
     t.index ["partner_id"], name: "index_participations_on_partner_id"
     t.index ["tournament_id"], name: "index_participations_on_tournament_id"
     t.index ["user_id"], name: "index_participations_on_user_id"
@@ -156,12 +156,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_14_142325) do
   add_foreign_key "chatrooms", "tournaments"
   add_foreign_key "chatrooms", "users"
   add_foreign_key "games", "matches"
+  add_foreign_key "matches", "participations", column: "first_team_id"
+  add_foreign_key "matches", "participations", column: "second_team_id"
   add_foreign_key "matches", "participations", column: "winner_id"
   add_foreign_key "matches", "tournaments"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
   add_foreign_key "participations", "tournaments"
   add_foreign_key "participations", "users"
-  add_foreign_key "participations", "users", column: "partner_id"
   add_foreign_key "tournaments", "users"
 end

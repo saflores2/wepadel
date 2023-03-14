@@ -20,10 +20,10 @@
           <% end %>
                     </li>
           <li class="nav-item">
-            <%= link_to "Torneos", tournaments_path, class: "nav-link" %>
+            <%= link_to "Torneos", tournaments_path, class: "nav-link", style: "text-transform: capitalize;" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Mis torneos", my_participations_participations_path, class: "nav-link" %>
+            <%= link_to "Mis torneos", my_participations_participations_path, class: "nav-link", style: "text-transform: capitalize;" %>
           </li>
           <li class="nav-item dropdown">
             <% if current_user.photo.attached? %>
