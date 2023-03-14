@@ -10,9 +10,6 @@ export default class extends Controller {
       typeSpeed: 50,
       loop: true
     })
-    new Typed(this.element, {
-      strings: ["We Padel"],
-      typeSpeed: 40,
-      loop: true
+    
   }
 }
