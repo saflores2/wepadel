@@ -136,7 +136,7 @@ tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club
 # tournament1.photo.attach(io: file, filename: "t1.png", content_type: "image/png")
 # tournament1.save
 
-tournament2 = Tournament.create!(name: "Americano", ubication_name: "Alto Padel", ubication_address: "Avenida Las Condes 11755", user_id: user2.id, price: 8000, start_date: "2023-03-31", end_date: "2023-03-31", duration: "1 hora", type: "Americano", category: "Femenino B", min_matches: 2, max_matches: 8, places: 16, available_places: 16, match_duration: "20 minutos", awards: "Dinero en Efectivo", other: "Inscrpicion Hasta el 29 de Marzo")
+tournament2 = Tournament.create!(name: "Americano", ubication_name: "Alto Padel", ubication_address: "Avenida Las Condes 11755", user_id: user2.id, price: 8000, start_date: "2023-03-31", end_date: "2023-03-31", duration: "1 hora", type: "Americano", category: "Femenino B", min_matches: 2, max_matches: 8, places: 8, available_places: 8, match_duration: "20 minutos", awards: "Dinero en Efectivo", other: "Inscrpicion Hasta el 29 de Marzo")
 
 file = URI.open("https://canariasnoticias.es/sites/default/files/2018/03/canchas_de_padel21.jpg")
 tournament2.photo.attach(io: file, filename: "t2.png", content_type: "image/png")
@@ -178,9 +178,19 @@ p5 = Participation.create!(tournament_id: 3, user_id: 6, status: "pagado")
 p6 = Participation.create!(tournament_id: 3, user_id: 7, status: "pagado")
 p7 = Participation.create!(tournament_id: 3, user_id: 8, status: "pagado")
 p8 = Participation.create!(tournament_id: 3, user_id: 9, status: "pagado")
-tournament1.available_places = 0
-tournament1.save
+tournament3.available_places = 0
+tournament3.save
+
+p1 = Participation.create!(tournament_id: 2, user_id: 1, status: "pagado")
+p2 = Participation.create!(tournament_id: 2, user_id: 3, status: "pagado")
+p3 = Participation.create!(tournament_id: 2, user_id: 4, status: "pagado")
+p4 = Participation.create!(tournament_id: 2, user_id: 5, status: "pagado")
+p5 = Participation.create!(tournament_id: 2, user_id: 6, status: "pagado")
+p6 = Participation.create!(tournament_id: 2, user_id: 7, status: "pagado")
+p7 = Participation.create!(tournament_id: 2, user_id: 8, status: "pagado")
+p8 = Participation.create!(tournament_id: 2, user_id: 9, status: "pagado")
+tournament2.available_places = 0
+tournament2.save
 
 
 puts "Participations creadas"
-
