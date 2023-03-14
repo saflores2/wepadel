@@ -10,6 +10,7 @@ class User < ApplicationRecord
                                     foreign_key: 'partner_id'
 
   has_many :tournaments, through: :participations
+  has_many :chatrooms, through: :tournaments
   has_many :partner_tournaments, through: :partner_participations, source: :tournament
   validates :name, :last_name, :email, presence: true
   validates :email, uniqueness: true

@@ -6,7 +6,7 @@
   border: 1px solid #CCC;
   border-radius: 1em;
   margin-top: 5px;
-  box-shadow: 1px 1px 4px #C6E3CC;
+  box-shadow: 1px 1px 4px #9cc0a3;
   transition: background-color .5s;
   align-items: center;
 }
@@ -18,3 +18,7 @@
 
 .form-date-from, .form-date-to {
   width: 155px; }
+
+  h2 {
+    text-shadow: #9cc0a3;
+  }
