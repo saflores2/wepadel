@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :skip_authorization
   def index
     @room = Room.new
     @rooms = Room.public_rooms
@@ -8,7 +8,7 @@ class RoomsController < ApplicationController
   end
 
   def create
-    @room = Room.create(name: params["room"]["name"])
+    @room = Room.create(name: params[:id])
   end
 
   def show

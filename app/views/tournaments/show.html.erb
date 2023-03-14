@@ -59,6 +59,8 @@
   <br>
   <% if current_user != @tournament.user %>
     <%= link_to "Chat", tournament_chatrooms_path(@tournament.id), class: "btn btn-primary", data: { turbo_method: "post" }, style: "margin-top: 9px;"  %>
+  <% else %>
+    <%= link_to "mis chatrooms", tournament_my_chatrooms_path(@tournament.id), class: "btn btn-primary", data: { turbo_method: "post" }, style: "margin-top: 9px;" %>
   <% end %>
   <%= button_to "Eliminar torneo", @tournament, data: {turbo_method: :delete, turbo_confirm: "¿Estás seguro?"}, method: :delete if policy(@tournament).destroy? %>
 </div>
