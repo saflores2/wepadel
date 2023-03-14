@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_202541) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_231723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +49,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_202541) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "games", force: :cascade do |t|
+    t.integer "games_first_team"
+    t.integer "games_second_team"
+    t.bigint "match_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_games_on_match_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.bigint "tournament_id", null: false
+    t.integer "round"
+    t.integer "match_number"
+    t.bigint "winner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "first_team_name"
+    t.string "second_team_name"
+    t.bigint "first_team_id"
+    t.bigint "second_team_id"
+    t.index ["first_team_id"], name: "index_matches_on_first_team_id"
+    t.index ["second_team_id"], name: "index_matches_on_second_team_id"
+    t.index ["tournament_id"], name: "index_matches_on_tournament_id"
+    t.index ["winner_id"], name: "index_matches_on_winner_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string "content"
     t.bigint "chatroom_id", null: false
@@ -63,14 +88,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_202541) do
   create_table "participations", force: :cascade do |t|
     t.bigint "tournament_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "partner_id"
     t.string "partner_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
-    t.bigint "partner_id"
     t.index ["partner_id"], name: "index_participations_on_partner_id"
     t.index ["tournament_id"], name: "index_participations_on_tournament_id"
     t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_private", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -116,9 +148,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_202541) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "games", "matches"
+  add_foreign_key "matches", "participations", column: "winner_id"
+  add_foreign_key "matches", "tournaments"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
   add_foreign_key "participations", "tournaments"
   add_foreign_key "participations", "users"
+  add_foreign_key "participations", "users", column: "partner_id"
   add_foreign_key "tournaments", "users"
 end

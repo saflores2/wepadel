@@ -9,7 +9,7 @@ class ParticipationsController < ApplicationController
     @participation.status = "solicitado"
     find_partner if valid_partner?
     @participation.save
-    flash.alert = "Correo de pareja no válido, puedes continuar con tu inscripción" if valid_partner? == false && params[:participation][:partner_email] != ""
+    flash.alert = "Correo de pareja no válido, puedes continuar con tu inscripción" if @participation.partner_id == nil && params[:participation][:partner_email] != ""
     redirect_to payment_participation_path(@participation.id)
   end
 

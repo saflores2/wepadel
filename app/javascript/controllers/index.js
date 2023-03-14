@@ -13,5 +13,3 @@ application.register("hello", HelloController)
 import PruebaController from "./prueba_controller"
 application.register("prueba", PruebaController)
 
-import TypedJsController from "./typed_js_controller"
-application.register("typed-js", TypedJsController)
