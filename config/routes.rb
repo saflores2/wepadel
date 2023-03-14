@@ -33,5 +33,10 @@ Rails.application.routes.draw do
     resources :messages, only: :create
   end
 
+  resources :matches, only: [:update] do
+    resources :games, only: [:create]
+  end
+
   resources :rooms
+
 end
