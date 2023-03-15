@@ -148,9 +148,9 @@ box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1
 transform: scale(1.05) rotate(-1deg);
 }
 
-// .buttons-s {
-//   display: block;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-// }
+.buttons-s {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  color: yellow;
+}
