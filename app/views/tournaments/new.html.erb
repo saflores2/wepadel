@@ -1,24 +1,33 @@
-  <h1>Publica tu torneo</h1>
   <div class="container">
+  <h1>Publica tu torneo</h1>
     <%= simple_form_for(@tournament) do |f| %>
       <%= f.input :name, :label => "Nombre del torneo" %>
-      <%= f.input :ubication_address, :label => "Dirección" %>
+      <%# <%= f.input :ubication_address, :label => "Dirección" %>
+      <%= f.input :ubication_address,
+                  input_html: {data: {address_autocomplete_target: "address"}},
+                  wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
       <%= f.input :ubication_name, :label => "Nombre de la ubicación" %>
-      <%= f.input :price, :label => "Precio por pareja"%>
-      <%= f.input :start_date, :label => "Fecha y hora de inicio"%>
-      <%= f.input :end_date, :label => "Fecha y hora de término"%>
-      <%= f.input :duration, :label => "Duración por día"%>
+      <%= f.input :price, :label => "Precio por pareja (CLP)"%>
+      <%= f.input :start_date, :label => "Fecha y hora de inicio", html5: true%>
+      <%= f.input :end_date, :label => "Fecha y hora de término", html5: true%>
+      <%= f.input :duration, :label => "Duración del tonero por día (ej: 4 horas)"%>
       <h4>Tipos de torneos disponibles:</h4>
       <p><strong>Champions League:</strong> Son 4 grupos con 4 parejas cada uno. Cada pareja juega 3 partidos y las 2 primeras parejas de cada grupo pasan a cuartos de final. Este torneo asegura un mínimo de 3 partidos. Debe tener 16 cupos.</p>
       <p><strong>Americano:</strong> La terminología “americano” se refiere a “todos contra todos”. Debe tener un número par de cupos para que todas las parejas jueguen al mismo tiempo.</p>
       <p><strong>Express:</strong> Se suelen hacer 2 grupos de 4 parejas y cada pareja juega 3 partidos. Las dos primeras de cada grupo, juegan semifinales y las otras 4 suelen jugar por el quinto puesto. Este formato asegura jugar 5 partidos. Debe tener 8 cupos.</p>
       <p><strong>Otro:</strong> Este tipo de torneo no incluye fixture.</p>
+      <p></p>
       <%= f.input :type, :label => "Seleccionar tipo de torneo", collection: ["Champions League", "Americano", "Express", "Otro"] %>
+      <h4>Categorías:</h4>
+      <p><strong>Categoría Masculinas:</strong> de primera a sexta.</p>
+      <p><strong>Categoría Femeninas:</strong> de A a D.</p>
+      <p><strong>Categoría Mixtas:</strong> de A a D.</p>
+      <p></p>
       <%= f.input :category, :label => "Seleccionar categoría", collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
       <%= f.input :min_matches, :label => "Partidos mínimos a jugar por pareja" %>
       <%= f.input :max_matches, :label => "Partidos máximos a jugar por pareja" %>
       <%= f.input :places, :label => "Cupos disponibles (1 cupo por pareja)"%>
-      <%= f.input :match_duration, :label => "Duración aproximada de cada partido" %>
+      <%= f.input :match_duration, :label => "Duración aproximada de cada partido (ej: 1 hora)" %>
       <%= f.input :awards, :label => "Premios" %>
       <%= f.input :other, :label => "Otras especificaciones" %>
       <%= f.input :photo, as: :file, :label => "Imagen"%>

@@ -1,35 +1,19 @@
 <div class="container pt-4">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-6 col-lg-4 bg-white border border-3">
-          <form action="#" class="row">
-            <h2 class="text-center mb-4">Payment</h2>
-            <div class="col-12 mb-3">
-              <label for="" class="form-label"> Card Number </label>
-              <input
-                type="text"
-                class="form-control"
+  <div class="cho-container"></div>
+  <script>
+    const mp = new MercadoPago('TEST-226940d9-33d8-4483-b7c8-b7f72dc8eec1', {
+      locale: 'es-AR'
+    });
 
-              />
-            </div>
-            <div class="col-6 mb-3">
-              <label for="first-name" class="form-label">
-                Due date
-              </label>
-              <input type="text" class="form-control" />
-            </div>
-            <div class="col-6 mb-3">
-              <label for="last-name" class="form-label"> cvc </label>
-              <input type="text" class="form-control" />
-            </div>
-            <div class="col-12 mb-3">
-              <label for="" class="form-label"> Name </label>
-              <input type="text" class="form-control" placeholder="name" />
-            </div>
-            <div class="col-12 mb-4">
-                <%= link_to "Pay", confirmation_participation_path, class: "btn btn-primary" %>
-            </div>
-          </form>
-        </div>
-      </div>
+    mp.checkout({
+      preference: {
+        id: '<%@preference_id%>'
+      },
+      render: {
+        container: '.cho-container',
+        label: 'Pagar',
+      }
+    });
+  </script>
 
-    </div>
+</div>
