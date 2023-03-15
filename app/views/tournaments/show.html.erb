@@ -23,29 +23,35 @@
     <p><strong>Otras especificaciones:</strong> <%= @tournament.other %></p>
     <% if @tournament.photo.key != nil %>
     <% end %>
+    <ul style="margin-top: -120px; margin-left: -500px">
+      <li>
+        <h6>
+          <strong>Precio por pareja:</strong> <%= number_to_currency(@tournament.price, precision: 0, unit: 'CLP $ ', delimiter: '.') %>
+        </h6>
+      </li>
+      <li>
+        <h6>
+          <strong>Lugar:</strong> <%= @tournament.ubication_name %>
+        </h6>
+      </li>
+      <li>
+        <h6>
+          <strong>Dirección:</strong> <%= @tournament.address.split.first(3).join(" ") %>
+        </h6>
+      </li>
+    </ul>
   </div>
-  <ul style="margin-top: -120px; margin-left: 20px">
-    <li>
-      <h6>
-        <strong>Precio por pareja:</strong> <%= number_to_currency(@tournament.price, precision: 0, unit: 'CLP $ ', delimiter: '.') %>
-      </h6>
-    </li>
-    <li>
-      <h6>
-        <strong>Lugar:</strong> <%= @tournament.ubication_name %>
-      </h6>
-    </li>
-    <li>
-      <h6>
-        <strong>Dirección:</strong> <%= @tournament.ubication_address.split.first(3).join(" ") %>
-      </h6>
-    </li>
-  </ul>
+</div>
+
+<div class="mapa" style="width: 600px; height: 500px; margin-top: -500px; margin-left: 1150px;"
+  data-controller="map"
+  data-map-markers-value="<%= @markers.to_json %>"
+  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
 </div>
 
 <div class="container">
-  <div class="row d-flex justify-content-around">
-    <div class="col-12 col-lg-6">
+  <div class="row mb-50">
+    <div class="col-12 col-lg-6 align-self-start">
       <% if current_user != @tournament.user %>
         <% if @tournament.available_places.positive? && user_signed_in? %>
 
