@@ -49,7 +49,7 @@
       </div>
     <% end %>
 
-    <div class="border">
+    <div class="border mt-2">
       <h3 class="text-center">Participantes</h3>
       <div class="text-center d-flex justify-content-center">
       <% num = 1 %>
@@ -81,8 +81,6 @@
     </div>
 
 
-
-
     <div class="d-flex p-2 m-2 justify-content-center">
 
       <% rounds_array.each do |round_number| %>
@@ -103,7 +101,7 @@
               <div class="p-3 m-2 border text-center w-16 match_card">
             <% end %>
 
-                <h6><%= "Partido #{m.match_number}" %></h6>
+                <h6 style="color: white; text-align: center;"><%= "Partido #{m.match_number}" %></h6>
 
                 <%# Si partido no ha finalizado y jugadores están definidos %>
                 <% if m.first_team_id != nil && m.second_team_id != nil && m.winner_id.nil? %>
@@ -112,14 +110,14 @@
                   <% user_team1 = User.find(team1.user_id) %>
                   <% user_team2 = User.find(team2.user_id) %>
                   <%= form_with url: match_games_path(m.id), method: :post do |f| %>
-                    <p><%= "#{team_names[user_team1.email]}" %></p>
+                    <p style="color: white; text-align: center;"><%= "#{team_names[user_team1.email]}" %></p>
                     <% if current_user == @tournament.user %>
                       <p class="d-flex justify-content-center"><%= f.number_field :games_first_team, class:"text-center", style: "width: 50px" %></p>
                     <% end %>
-                    <p>VS</p>
-                    <p><%= "#{team_names[user_team2.email]}" %></p>
+                    <p style="color: white; text-align: center;">VS</p>
+                    <p style="color: white; text-align: center;"><%= "#{team_names[user_team2.email]}" %></p>
                     <% if current_user == @tournament.user %>
-                      <p class="d-flex justify-content-center"><%= f.number_field :games_second_team, class:"text-center", style: "width: 50px" %></p>
+                      <p class="d-flex justify-content-center pb-2"><%= f.number_field :games_second_team, class:"text-center", style: "width: 50px" %></p>
                       <%= f.submit "Ingresar puntaje de set", class: "btn btn-primary", style: "background-color: #C6E3CC; color: black;" %>
                     <% end  %>
                   <% end %>
@@ -128,8 +126,8 @@
                   <div class="d-flex justify-content-center">
                     <% sets.each do |s| %>
                         <div class="border p-2 m-1">
-                        <p><%= s.games_first_team %></p>
-                        <p><%= s.games_second_team %></p>
+                        <p style="color: white;" ><%= s.games_first_team %></p>
+                        <p style="color: white;" ><%= s.games_second_team %></p>
                         </div>
                     <% end %>
                   </div>
@@ -148,10 +146,10 @@
                   <% user_team2 = User.find(team2.user_id) %>
                   <% if m.winner_id == m.first_team_id %>
                     <p class= "border text-center" style= "background-color: #C6E3CC; color: black;"><%= "#{team_names[user_team1.email]}" %></p>
-                    <p>VS</p>
-                    <p><%= "#{team_names[user_team2.email]}" %></p>
+                    <p style="color: white; text-align: center;">VS</p>
+                    <p style="color: white; text-align: center;"><%= "#{team_names[user_team2.email]}" %></p>
                   <% else  %>
-                    <p><%= "#{team_names[user_team1.email]}" %></p>
+                    <p style="color: white; text-align: center;"><%= "#{team_names[user_team1.email]}" %></p>
                     <p>vs</p>
                     <p class= "border text-center" style= "background-color: #C6E3CC; color: black;"><%= "#{team_names[user_team2.email]}" %></p>
                   <% end %>
@@ -159,17 +157,17 @@
                   <div class="d-flex justify-content-center">
                     <% sets.each do |s| %>
                         <div class="border p-2 m-1">
-                        <p><%= s.games_first_team %></p>
-                        <p><%= s.games_second_team %></p>
+                        <p style="color: white;"><%= s.games_first_team %></p>
+                        <p style="color: white;"><%= s.games_second_team %></p>
                         </div>
                     <% end %>
                   </div>
 
                 <%# Si no se han definido jugadores %>
                 <% else %>
-                  <p><%= "#{m.first_team_name}" %></p>
-                  <p>VS</p>
-                  <p><%= "#{m.second_team_name}" %></p>
+                  <p style="color: white; text-align: center;"><%= "#{m.first_team_name}" %></p>
+                  <p style="color: white; text-align: center;">VS</p>
+                  <p style="color: white; text-align: center;"><%= "#{m.second_team_name}" %></p>
                 <% end %>
 
               </div>

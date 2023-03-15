@@ -1,6 +1,6 @@
 class ParticipationsController < ApplicationController
-  before_action :set_participation, only: [:payment, :confirmation]
   before_action :skip_authorization
+  before_action :set_participation, only: [:payment, :confirmation]
 
   def create
     @participation = Participation.new
@@ -22,6 +22,24 @@ class ParticipationsController < ApplicationController
     if @tournament.available_places.zero?
       flash.alert = "Lo siento, no quedan cupos en este torneo."
       redirect_to tournament_path(@tournament.id)
+      require 'mercadopago'
+      # Agrega credenciales
+      # sdk = Mercadopago::SDK.new(ENV['MP_ENV'])
+      sdk = Mercadopago::SDK.new('TEST-8176056889804520-031416-7a4c5991c28d53e89ad27244c6bd599c-635661916')
+      preference_data = {
+        items: [
+          {
+            title: 'Mi producto',
+            unit_price: 75,
+            quantity: 1
+          }
+        ]
+      }
+      preference_response = sdk.preference.create(preference_data)
+      preference = preference_response[:response]
+
+      # Este valor reemplazará el string "<%= @preference_id %>" en tu HTML
+      @preference_id = preference['id']
     end
   end
 

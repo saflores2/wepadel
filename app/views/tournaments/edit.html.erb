@@ -1,13 +1,13 @@
-  <h1>Edita tu torneo</h1>
   <div class="container">
+  <h1>Edita tu torneo</h1>
   <% if @tournament.available_places == @tournament.places%>
     <%= simple_form_for(@tournament) do |f| %>
       <%= f.input :name, :label => "Nombre del torneo" %>
       <%= f.input :ubication_address, :label => "Dirección" %>
       <%= f.input :ubication_name, :label => "Nombre de la ubicación" %>
       <%= f.input :price, :label => "Precio por pareja"%>
-      <%= f.input :start_date, :label => "Fecha y hora de inicio"%>
-      <%= f.input :end_date, :label => "Fecha y hora de término"%>
+      <%= f.input :start_date, :label => "Fecha y hora de inicio", html5: true%>
+      <%= f.input :end_date, :label => "Fecha y hora de término", html5: true%>
       <%= f.input :duration, :label => "Duración por día"%>
       <%= f.input :type, :label => "Seleccionar tipo de torneo", collection: ["Champions League", "Americano", "Express", "Otro"] %>
       <%= f.input :category, :label => "Seleccionar categoría", collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
