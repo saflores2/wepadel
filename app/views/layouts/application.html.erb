@@ -1,5 +1,8 @@
 <!DOCTYPE html>
   <head>
+    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
+    <%= favicon_link_tag "logo_oficial.png", rel:"icon", type: "image/png" %>
+    <%= render 'shared/ios_pwa_links' %>
     <title>Wepadel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
@@ -13,11 +16,11 @@
 
     <style>
       <%= ".msg-#{current_user&.id}" %> {
-      background-color: #007bff !important;
+        background-color: #007bff !important;
       padding: 10px;
       }
       <%= ".cont-#{current_user&.id}" %> {
-      display: flex;
+        display: flex;
       justify-content: flex-end;
       }
     </style>

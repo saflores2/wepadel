@@ -4,12 +4,13 @@ class ChatroomsController < ApplicationController
     @chatroom = Chatroom.new()
     @chatroom.tournament_id = params[:tournament_id]
     @chatroom.user_id = @chatroom.tournament.user_id
-    @chatroom.name = @chatroom.tournament.name
+    # @chatroom.user_id = @current_user_id
+    @chatroom.name = "#{@chatroom.tournament.name} - #{current_user.name} #{current_user.last_name}"
     redirect_to chatroom_path(@chatroom.id) if @chatroom.save
   end
 
   def my_chatrooms
-    @chatrooms = Chatroom.where(user_id: current_user.id)
+    @chatrooms = Chatroom.where(user: current_user)
   end
 
   def show
@@ -18,9 +19,4 @@ class ChatroomsController < ApplicationController
     authorize @chatroom
   end
 
-  # def my_chatrooms
-  #   # has many user :trhoug user
-  #   @chatroom.users
-  #   @chatrooms = Chatroom
-  # end
 end
