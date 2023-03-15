@@ -1,0 +1,35 @@
+<div class="container mt-5">
+
+
+  <div id="statusScreenBrick_container"></div>
+  <script>
+      const mp = new MercadoPago('TEST-226940d9-33d8-4483-b7c8-b7f72dc8eec1', {
+          locale: 'en-US'
+      });
+      const bricksBuilder = mp.bricks();
+      const renderStatusScreenBrick = async (bricksBuilder) => {
+          const settings = {
+              initialization: {
+                  paymentId: '<%= @payment.mp_id %>', // valor del procesamiento a realizar
+              },
+              callbacks: {
+                  onReady: () => {
+                      // callback llamado cuando Brick está listo
+                  },
+                  onError: (error) => {
+                      // callback llamado para todos los casos de error de Brick
+                  },
+              },
+              customization: {
+                  visual: {
+                      showExternalReference: true
+                  }
+              }
+          };
+          window.statusScreenBrickController = await bricksBuilder.create('statusScreen', 'statusScreenBrick_container', settings);
+      };
+      renderStatusScreenBrick(bricksBuilder);
+  </script>
+  <%# <%= link_to 'Go to bookings', bookings_path, class: "btn btn-dark mt-4 rounded-3" %>
+  <%= link_to "Ver más torneos", tournaments_path, class: "button-33"%>
+</div>
