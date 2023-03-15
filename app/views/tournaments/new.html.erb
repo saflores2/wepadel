@@ -1,7 +1,7 @@
-  <div class="container shadow bg-white">
-    <div class="row">
-    <h1>Publica tu torneo</h1>
-    <div class="col">
+  <div class="container shadow bg-white mb-4 mt-4">
+    <div class="row mt-4 mb-4">
+      <h1 class="titulo" style="margin-top: 0px;">Publica tu torneo</h1>
+      <div class="col">
         <%= simple_form_for(@tournament) do |f| %>
         <%= f.input :name, :label => "Torneo", class:"form-control", placeholder:"Nombre del Torneo" %>
       </div>
@@ -92,7 +92,10 @@
         </div>
       </div>
         <%= f.input :photo, as: :file, :label => "Imagen"%>
-        <%= f.button :submit, "Publicar torneo" %>
-      <% end %>
+        <div style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+          <%= f.button :submit, "Publicar torneo" %>
+        </div>
+        <div style="margin-bottom: 50px;"></div>
+              <% end %>
 
   </div>
