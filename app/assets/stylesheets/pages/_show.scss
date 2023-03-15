@@ -142,9 +142,9 @@
   transform: scale(1.05) rotate(-1deg);
 }
 
-// .buttons-s {
-//   display: block;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-// }
+.buttons-s {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  color: yellow;
+}
