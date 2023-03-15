@@ -1,0 +1,16 @@
+.mapa{
+  width: 50%;
+  height: 300px;
+  margin-top: 20px;
+  margin-left: 250px;
+  border-radius: 5%;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
