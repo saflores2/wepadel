@@ -37,7 +37,7 @@
     </li>
     <li>
       <h6>
-        <strong>Dirección:</strong> <%= @tournament.ubication_address %>
+        <strong>Dirección:</strong> <%= @tournament.ubication_address.split.first(3).join(" ") %>
       </h6>
     </li>
   </ul>
