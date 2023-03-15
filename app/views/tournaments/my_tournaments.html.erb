@@ -1,5 +1,5 @@
-<div class="containe">
-  <h1>Mis publicaciones</h1>
+<div class="container">
+  <h1 class="titulo">Mis publicaciones</h1>
   <div class="row mt-5 mb-5">
       <% @tournaments.each do |tournament| %>
         <div class="col-sm-6 col-md-4 col-lg-4">
@@ -30,6 +30,4 @@
         </div>
       <% end %>
     </div>
-  <br>
-  <%= link_to "Back to tournaments", tournaments_path %>
 </div>
