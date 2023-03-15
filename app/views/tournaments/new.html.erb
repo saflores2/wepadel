@@ -4,7 +4,7 @@
       <%= f.input :name, :label => "Nombre del torneo" %>
       <%= f.input :ubication_address,
                   input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
-                  wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
+                  wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}, class: "mapboxgl-ctrl-geocoder--input" %>
       <%= f.input :ubication_name, :label => "Nombre de la ubicación" %>
       <%= f.input :price, :label => "Precio por pareja (CLP)"%>
       <%= f.input :start_date, :label => "Fecha y hora de inicio", html5: true%>

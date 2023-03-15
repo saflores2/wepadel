@@ -18,6 +18,7 @@ class TournamentsController < ApplicationController
   def show
     authorize @tournament
     @participation = Participation.new
+    @payment = Payment.new
   end
 
   def new
