@@ -1,19 +1,23 @@
 <div class="container pt-4">
-  <div class="cho-container"></div>
-  <script>
-    const mp = new MercadoPago('TEST-226940d9-33d8-4483-b7c8-b7f72dc8eec1', {
-      locale: 'es-AR'
-    });
 
-    mp.checkout({
-      preference: {
-        id: '<%@preference_id%>'
-      },
-      render: {
-        container: '.cho-container',
-        label: 'Pagar',
-      }
-    });
-  </script>
+// SDK MercadoPago.js
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<div class="cho-container"></div>
+<script>
+  const mp = new MercadoPago('PUBLIC_KEY', {
+    locale: 'es-AR'
+  });
+
+  mp.checkout({
+    preference: {
+      id: '<%= @preference_id %>'
+    },
+    render: {
+      container: '.cho-container',
+      label: 'Pagar',
+    }
+  });
+</script>
 
 </div>
