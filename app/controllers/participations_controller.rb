@@ -28,15 +28,15 @@ class ParticipationsController < ApplicationController
   end
 
   def confirmation
-    if @tournament.available_places.positive?
-      @tournament.available_places -= 1
-      @tournament.save
-      @participation.status = "pagado"
-      @participation.save
-    else
-      flash.alert = "Lo siento, no quedan cupos en este torneo."
-      redirect_to tournament_path(@tournament.id)
-    end
+    # if @tournament.available_places.positive?
+    #   @tournament.available_places -= 1
+    #   @tournament.save
+    #   @participation.status = "pagado"
+    #   @participation.save
+    # else
+    #   flash.alert = "Lo siento, no quedan cupos en este torneo."
+    #   redirect_to tournament_path(@tournament.id)
+    # end
   end
 
   private
