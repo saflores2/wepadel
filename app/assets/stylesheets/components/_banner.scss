@@ -2,7 +2,11 @@
   background: center;
   padding: 100px 0;
   animation: banner 28s linear infinite;
-  transition-delay: 1s;
+  transition-property: all;
+  transition-delay: 2s;
+  transition-duration: 3s;
+  transition-timing-function: ease-in-out;
+  transition: all 3s ease-in-out;
   width: 100%;
   height: 40vh;
 }
