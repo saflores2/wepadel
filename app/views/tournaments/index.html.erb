@@ -1,6 +1,11 @@
 <div class="container">
   <div class="container">
     <%= render "shared/search_form" %>
+    <div class="mapa"
+      data-controller="map"
+      data-map-markers-value="<%= @markers.to_json %>"
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
     <div class="row mt-5 mb-5">
       <% @tournaments.each do |tournament| %>
         <div class="col-sm-6 col-md-4 col-lg-4">

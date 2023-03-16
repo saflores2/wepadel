@@ -13,11 +13,20 @@ class TournamentsController < ApplicationController
     @tournaments = policy_scope(@tournaments.where("price <= (?)", params[:max_price])) if params[:max_price].present?
     @tournaments = policy_scope(@tournaments.where("start_date >= (?)", params[:start_date])) if params[:start_date].present?
     @tournaments = policy_scope(@tournaments.where("end_date <= (?)", params[:end_date])) if params[:end_date].present?
+    @markers = @tournaments.geocoded.map do |flat|
+      {
+        lat: flat.latitude,
+        lng: flat.longitude,
+        info_windows: render_to_string(partial: "info_windows", locals: { flat: flat }),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
   end
 
   def show
     authorize @tournament
     @participation = Participation.new
+    @payment = Payment.new
   end
 
   def new

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   end
 
   resources :participations, only: [:delete] do
+    resources :payments, only: [:new, :create]
     member do
       get :payment
       get :confirmation
@@ -35,5 +36,8 @@ Rails.application.routes.draw do
   resources :matches, only: [:update] do
     resources :games, only: [:create]
   end
+
+  post "process_payment", to: "payments#process_payment"
+  resources :payments, except: [:new, :create]
 
 end
