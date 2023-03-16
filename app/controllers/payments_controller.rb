@@ -6,7 +6,7 @@ class PaymentsController < ApplicationController
     @participation = Participation.find(params[:participation_id])
     @tournament = @participation.tournament
     @payment = Payment.new
-    # session[:participation_id] = @participation.id
+    session[:participation_id] = @participation.id
   end
 
   def index
@@ -56,10 +56,10 @@ class PaymentsController < ApplicationController
     @payment.status = resultado["status"]
     @payment.status_detail = resultado["status_detail"]
     @payment.mp_id = resultado["id"].to_i
-    # @participation = Participation.find(session[:participation_id])
+    @participation = Participation.find(session[:participation_id])
     if @payment.save
-      # @participation.payment_id = @payment.id
-      # @participation.save
+      @participation.payment_id = @payment.id
+      @participation.save
       redirect_to payment_path(@payment.id)
     else
       redirect_to tournament_path(@tournament.id), alert: "Pago no procesado"
