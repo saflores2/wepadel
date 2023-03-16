@@ -4,11 +4,11 @@
     <div class="row">
       <div class="col-md-6 mx-auto">
         <%= simple_form_for(@tournament) do |f| %>
-        <%= f.input :name, :label => "Torneo", class:"form-control", class: "d-none", placeholder:"Nombre del Torneo" %>
+        <%= f.input :name, :label => "Torneo", class:"form-control", placeholder:"Nombre del Torneo" %>
       </div>
     <div class="col-md-6 mx-auto">
       <%= f.input :address, :label => "Dirección",
-          input_html: {data: {address_autocomplete_target: "address"}, placeholder: "Ingrese su dirección"},
+          input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
           wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
     </div>
   </div>
@@ -32,7 +32,7 @@
       <div class="col-md-6 mx-auto">
         <%= f.input :type, :label => "Tipo de torneo", collection: ["Champions League", "Americano", "Express", "Otro"] %>
       </div>
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-6 mt-4">
           <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingOne">
@@ -54,10 +54,10 @@
         </div>
     </div>
     <div class="row">
-      <div class="col-md-6 mx-auto">
+      <div class="col-md-6">
          <%= f.input :category, :label => "Categorías", collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
       </div>
-      <div class="col-md-6 mx-auto">
+      <div class="col-md-6 mt-4">
         <div class="accordion accordion-flush" id="accordionFlushExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
@@ -101,13 +101,19 @@
         <div class="col">
           <%= f.input :other, :label => "Otras especificaciones", class:"form-control", placeholder:"Otras descripciones" %>
         </div>
-        <%= f.input :duration, :label => "Duración", class:"form-control", placeholder:"Duracion por dia en Hrs" %>
       </div>
-        <%= f.input :photo, as: :file, :label => "Imagen"%>
-        <div style="display: flex; justify-content: center; align-items: center; height: 10vh;">
-          <%= f.button :submit, "Publicar torneo" %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :duration, :label => "Duración", class:"form-control", placeholder:"Duracion por dia en Hrs" %>
         </div>
-        <div style="margin-bottom: 50px;"></div>
-        <% end %>
+        <div class="col-md-6">
+          <%= f.input :photo, as: :file, :label => "Imagen"%>
+        </div>
+      </div>
+        <div style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+            <%= f.button :submit, "Publicar torneo" %>
+        </div>
+          <div style="margin-bottom: 50px;"></div>
+          <% end %>
   </div>
 </div>
