@@ -27,6 +27,14 @@ class TournamentsController < ApplicationController
     authorize @tournament
     @participation = Participation.new
     @payment = Payment.new
+    @tournament = Tournament.find(params[:id])
+    @markers =
+      [{
+        lat: @tournament.latitude,
+        lng: @tournament.longitude,
+        info_windows: render_to_string(partial: "info_windows", locals: { flat: @tournament }),
+        marker_html: render_to_string(partial: "marker")
+      }]
   end
 
   def new

@@ -154,9 +154,11 @@ puts "Torneos Creados"
 
 puts "Creando Participations"
 
+
 # range(2..17).each do |i|
 #   Participation.create!(tournament_id: 1, user_id: i, status: "pagado")
 # end
+
 
 # p1 = Participation.create!(tournament_id: 1, user_id: 2, status: "pagado")
 # p2 = Participation.create!(tournament_id: 1, user_id: 3, status: "pagado")
@@ -178,6 +180,7 @@ puts "Creando Participations"
 # tournament1.available_places = 0
 # tournament1.save
 
+
 p1 = Participation.create!(tournament_id: 3, user_id: 1, status: "pagado")
 p2 = Participation.create!(tournament_id: 3, user_id: 2, status: "pagado")
 p3 = Participation.create!(tournament_id: 3, user_id: 4, status: "pagado")
@@ -189,6 +192,7 @@ p8 = Participation.create!(tournament_id: 3, user_id: 9, status: "pagado")
 tournament3 = Tournament.find(3)
 tournament3.available_places = 0
 tournament3.save
+
 
 # p1 = Participation.create!(tournament_id: 2, user_id: 1, status: "pagado")
 # p2 = Participation.create!(tournament_id: 2, user_id: 3, status: "pagado")
@@ -203,4 +207,4 @@ tournament3.save
 # tournament2.save
 
 
-puts "Participations creadas"
+# puts "Participations creadas"
