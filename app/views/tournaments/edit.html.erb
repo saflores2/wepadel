@@ -1,6 +1,6 @@
 <div class="container shadow bg-white mb-4 mt-4">
   <div class="row mt-4 mb-4">
-      <h1 class="titulo" style="margin-top: 0px;">Edita tu torneo</h1>
+      <h1 class="titulo" style="margin-top: 0px;">Publica tu torneo</h1>
     <div class="row">
       <div class="col-md-6 mx-auto">
         <%= simple_form_for(@tournament) do |f| %>
@@ -8,7 +8,7 @@
       </div>
     <div class="col-md-6 mx-auto">
       <%= f.input :address, :label => "Dirección",
-          input_html: {data: {address_autocomplete_target: "address"}, class: "d-none", placeholder: "Ingrese su dirección"},
+          input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
           wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
     </div>
   </div>
@@ -30,56 +30,60 @@
     </div>
       <div class="row">
       <div class="col-md-6 mx-auto">
-        <%= f.input :duration, :label => "Duración", class:"form-control", placeholder:"Duracion por dia en Hrs" %>
+        <%= f.input :type, :label => "Tipo de torneo", collection: ["Champions League", "Americano", "Express", "Otro"] %>
       </div>
-        <div class="col-md-6 mx-auto">
-          <%= f.input :type, :label => "Tipo de torneo", collection: ["Champions League", "Americano", "Express", "Otro"] %>
+        <div class="col-md-6 mt-4">
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  <h8>Tipos de torneos disponibles:</h8>
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                  <p><strong>Champions League:</strong> Son 4 grupos con 4 parejas cada uno. Cada pareja juega 3 partidos y las 2 primeras parejas de cada grupo pasan a cuartos de final. Este torneo asegura un mínimo de 3 partidos. Debe tener 16 cupos.</p>
+                  <p><strong>Americano:</strong> La terminología “americano” se refiere a “todos contra todos”. Debe tener un número par de cupos para que todas las parejas jueguen al mismo tiempo.</p>
+                  <p><strong>Express:</strong> Se suelen hacer 2 grupos de 4 parejas y cada pareja juega 3 partidos. Las dos primeras de cada grupo, juegan semifinales y las otras 4 suelen jugar por el quinto puesto. Este formato asegura jugar 5 partidos. Debe tener 8 cupos.</p>
+                  <p><strong>Otro:</strong> Este tipo de torneo no incluye fixture.</p>
+                  <p></p>
+              </div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-            <h8>Tipos de torneos disponibles:</h8>
-          </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">
-            <p><strong>Champions League:</strong> Son 4 grupos con 4 parejas cada uno. Cada pareja juega 3 partidos y las 2 primeras parejas de cada grupo pasan a cuartos de final. Este torneo asegura un mínimo de 3 partidos. Debe tener 16 cupos.</p>
-            <p><strong>Americano:</strong> La terminología “americano” se refiere a “todos contra todos”. Debe tener un número par de cupos para que todas las parejas jueguen al mismo tiempo.</p>
-            <p><strong>Express:</strong> Se suelen hacer 2 grupos de 4 parejas y cada pareja juega 3 partidos. Las dos primeras de cada grupo, juegan semifinales y las otras 4 suelen jugar por el quinto puesto. Este formato asegura jugar 5 partidos. Debe tener 8 cupos.</p>
-            <p><strong>Otro:</strong> Este tipo de torneo no incluye fixture.</p>
-            <p></p>
-    </div>
-        </div>
+    <div class="row">
+      <div class="col-md-6">
+         <%= f.input :category, :label => "Categorías", collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
       </div>
-    </div>
-    <!-- aqui termina accordeon 1 -->
-    <%= f.input :category, :label => "Categorías", collection: ["Masculino 1ra", "Masculino 2da", "Masculino 3ra", "Masculino 4ta", "Masculino 5ta", "Masculino 6ta", "Femenino A", "Femenino B", "Femenino C", "Femenino D", "Mixto A", "Mixto B", "Mixto C", "Mixto D", "Otra"] %>
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-            <h8>Categorías:</h8>
-          </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">
-            <p><strong>Categoría Masculinas:</strong> de primera a sexta.</p>
-            <p><strong>Categoría Femeninas:</strong> de A a D.</p>
-            <p><strong>Categoría Mixtas:</strong> de A a D.</p>
-            <p></p>
-        </div>
+      <div class="col-md-6 mt-4">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                <h8> Tipos de categorías:</h8>
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <p><strong>Categoría Masculinas:</strong> de primera a sexta.</p>
+                <p><strong>Categoría Femeninas:</strong> de A a D.</p>
+                <p><strong>Categoría Mixtas:</strong> de A a D.</p>
+                <p></p>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <!-- aqui termina accordeon 2 -->
     <div class="row">
-      <div class="col-md-6 mx-auto">
-          <%= f.input :min_matches, :label => "Partidos mínimos", class:"form-control", placeholder:"Cantidad de partidos minimos por pareja" %>
+      <div class="col-md-6">
+          <%= f.input :min_matches, :label => "Partidos mínimos", class:"form-control", placeholder:"Cantidad de partidos minimos por pareja", class:"steve" %>
       </div>
-        <div class="col-md-6 mx-auto">
-          <%= f.input :max_matches, :label => "Partidos máximos", class:"form-control", placeholder:"Cantidad de partidos maximos por pareja" %>
+        <div class="col-md-6">
+          <%= f.input :max_matches, :label => "Partidos máximos", class:"form-control", placeholder:"Cantidad de partidos maximos por pareja", class:"steve" %>
         </div>
     </div>
       <div class="row">
@@ -98,11 +102,18 @@
           <%= f.input :other, :label => "Otras especificaciones", class:"form-control", placeholder:"Otras descripciones" %>
         </div>
       </div>
-        <%= f.input :photo, as: :file, :label => "Imagen"%>
-        <div style="display: flex; justify-content: center; align-items: center; height: 10vh;">
-          <%= f.button :submit, "Publicar torneo" %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :duration, :label => "Duración", class:"form-control", placeholder:"Duracion por dia en Hrs" %>
         </div>
-        <div style="margin-bottom: 50px;"></div>
-        <% end %>
+        <div class="col-md-6">
+          <%= f.input :photo, as: :file, :label => "Imagen"%>
+        </div>
+      </div>
+        <div style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+            <%= f.button :submit, "Publicar torneo" %>
+        </div>
+          <div style="margin-bottom: 50px;"></div>
+          <% end %>
   </div>
 </div>
