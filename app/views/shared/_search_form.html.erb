@@ -12,10 +12,12 @@
           <%= f.number_field :max_price, placeholder: 'Precio máximo' %>
        </div>
        <div class="col-sm-6 col-md-4 col-lg-2">
-        <input type="text" class="form-control" placeholder="Inicio" onfocus="(this.type='date')"/>
+        <%# <input type="text" class="form-control" placeholder="Inicio" onfocus="(this.type='date')"/> %>
+        <%= f.date_field :start_date, placeholder:"Inicio" %>
        </div>
        <div class="col-sm-6 col-md-4 col-lg-2">
-        <input type="text" class="form-control" placeholder="Fin" onfocus="(this.type='date')"/>
+        <%# <input type="text" class="form-control" placeholder="Fin" onfocus="(this.type='date')"/> %>
+        <%= f.date_field :end_date %>
         </div>
        <div class="col-sm-6 col-md-4 col-lg-2">
        <%= f.submit "Buscar", class: "btn btn-primary", style: "background-color: #184A22; font-family: Changa;" %>
