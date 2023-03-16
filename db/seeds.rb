@@ -128,7 +128,7 @@ user20.photo.attach(io: file, filename: "fdo.png", content_type: "image/png")
 user20.save
 puts "#{user20.name} created successfully"
 
-# puts "Creating Tournaments"
+puts "Creating Tournaments"
 
 tournament1 = Tournament.create!(name: "Champions League", ubication_name: "Club de Padel RedPadel", address: "Av Vitacura 8751", user_id: user1.id, price: 10000, start_date: "2023-03-24", end_date: "2023-03-26", duration: "3 horas", type: "Champions League", category: "Mixto A", min_matches: 3, max_matches: 5, places: 16, available_places: 16, match_duration: "1 hora", awards: "Trofeo y Medalla", other: "Inscrpicion Hasta el 22 de Marzo")
 
@@ -154,6 +154,12 @@ puts "Torneos Creados"
 
 puts "Creando Participations"
 
+
+# range(2..17).each do |i|
+#   Participation.create!(tournament_id: 1, user_id: i, status: "pagado")
+# end
+
+
 # p1 = Participation.create!(tournament_id: 1, user_id: 2, status: "pagado")
 # p2 = Participation.create!(tournament_id: 1, user_id: 3, status: "pagado")
 # p3 = Participation.create!(tournament_id: 1, user_id: 4, status: "pagado")
@@ -174,17 +180,19 @@ puts "Creando Participations"
 # tournament1.available_places = 0
 # tournament1.save
 
-# p1 = Participation.create!(tournament_id: 3, user_id: 1, status: "pagado")
-# p2 = Participation.create!(tournament_id: 3, user_id: 2, status: "pagado")
-# p3 = Participation.create!(tournament_id: 3, user_id: 4, status: "pagado")
-# p4 = Participation.create!(tournament_id: 3, user_id: 5, status: "pagado")
-# p5 = Participation.create!(tournament_id: 3, user_id: 6, status: "pagado")
-# p6 = Participation.create!(tournament_id: 3, user_id: 7, status: "pagado")
-# p7 = Participation.create!(tournament_id: 3, user_id: 8, status: "pagado")
-# p8 = Participation.create!(tournament_id: 3, user_id: 9, status: "pagado")
-# tournament3 = Tournament.find(3)
-# tournament3.available_places = 0
-# tournament3.save
+
+p1 = Participation.create!(tournament_id: 3, user_id: 1, status: "pagado")
+p2 = Participation.create!(tournament_id: 3, user_id: 2, status: "pagado")
+p3 = Participation.create!(tournament_id: 3, user_id: 4, status: "pagado")
+p4 = Participation.create!(tournament_id: 3, user_id: 5, status: "pagado")
+p5 = Participation.create!(tournament_id: 3, user_id: 6, status: "pagado")
+p6 = Participation.create!(tournament_id: 3, user_id: 7, status: "pagado")
+p7 = Participation.create!(tournament_id: 3, user_id: 8, status: "pagado")
+p8 = Participation.create!(tournament_id: 3, user_id: 9, status: "pagado")
+tournament3 = Tournament.find(3)
+tournament3.available_places = 0
+tournament3.save
+
 
 # p1 = Participation.create!(tournament_id: 2, user_id: 1, status: "pagado")
 # p2 = Participation.create!(tournament_id: 2, user_id: 3, status: "pagado")
