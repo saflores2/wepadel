@@ -12,7 +12,7 @@ export default class extends Controller {
 
     this.map = new mapboxgl.Map({
       container: this.element,
-      style: "mapbox://styles/mapbox/streets-v10"
+      style: "mapbox://styles/skeiner/clfb8duyi000b01p61icbpo57"
     })
 
     this.#addMarkersToMap()
@@ -21,7 +21,7 @@ export default class extends Controller {
 
   #addMarkersToMap() {
     this.markersValue.forEach((marker) => {
-      const popup = new mapboxgl.Popup().setHTML(marker.info_window_html)
+      const popup = new mapboxgl.Popup().setHTML(marker.info_windows)
 
       // Create a HTML element for your custom marker
       const customMarker = document.createElement("div")

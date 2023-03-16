@@ -6,7 +6,7 @@ class PaymentsController < ApplicationController
     @participation = Participation.find(params[:participation_id])
     @tournament = @participation.tournament
     @payment = Payment.new
-    # session[:participation_id] = @participation.id
+    session[:participation_id] = @participation.id
   end
 
   def index
@@ -14,17 +14,8 @@ class PaymentsController < ApplicationController
 
   def show
     @payment = Payment.find(params[:id])
-    # @participation = @payment.participation
-    # @tournament = @participation.tournament
-    # if @tournament.available_places.positive? && @payment.status == "approved"
-    #   @tournament.available_places -= 1
-    #   @tournament.save
-    #   @participation.status = "pagado"
-    #   @participation.save
-    # else
-    #   flash.alert = "Lo siento, no quedan cupos en este torneo."
-    #   redirect_to tournament_path(@tournament.id)
-    # end
+    @participation = @payment.participation
+    @tournament = @participation.tournament
   end
 
   def process_payment
@@ -56,13 +47,36 @@ class PaymentsController < ApplicationController
     @payment.status = resultado["status"]
     @payment.status_detail = resultado["status_detail"]
     @payment.mp_id = resultado["id"].to_i
-    # @participation = Participation.find(session[:participation_id])
+    @participation = Participation.find(session[:participation_id])
+    @tournament = @participation.tournament
     if @payment.save
-      # @participation.payment_id = @payment.id
-      # @participation.save
+      @participation.payment_id = @payment.id
+      @participation.save
+      if @tournament.available_places.positive? && @payment.status == "approved"
+        @participation.status = "pagado"
+        @participation.save
+        @tournament.available_places -= 1
+        @tournament.save
+        p @tournament
+      else
+        flash.alert = "Lo siento, no quedan cupos en este torneo."
+        redirect_to tournament_path(@tournament.id)
+      end
       redirect_to payment_path(@payment.id)
     else
       redirect_to tournament_path(@tournament.id), alert: "Pago no procesado"
     end
+  end
+
+  private
+  def update_places
+    @participation.status = "pagado"
+    @participation.save
+    old_places = @tournament.available_places
+    @tournament.available_places = old_places - 1
+    @tournament.save
+    # @tournament.available_places +=1
+    @tournament.save
+    raise
   end
 end
