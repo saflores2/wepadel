@@ -16,22 +16,6 @@ class PaymentsController < ApplicationController
     @payment = Payment.find(params[:id])
     @participation = @payment.participation
     @tournament = @participation.tournament
-    # torneo = @tournament
-    # old_places0 = @tournament.available_places
-    if @tournament.available_places.positive? && @payment.status == "approved"
-      # old_places1 = @tournament.available_places
-      @participation.status = "pagado"
-      # old_places2 = @tournament.available_places
-      @participation.save
-      # old_places = @tournament.available_places
-      # new_places = old_places
-      # @tournament.available_places = new_places
-      @tournament.available_places -= 1
-      @tournament.save
-    else
-      flash.alert = "Lo siento, no quedan cupos en este torneo."
-      redirect_to tournament_path(@tournament.id)
-    end
   end
 
   def process_payment
@@ -64,12 +48,35 @@ class PaymentsController < ApplicationController
     @payment.status_detail = resultado["status_detail"]
     @payment.mp_id = resultado["id"].to_i
     @participation = Participation.find(session[:participation_id])
+    @tournament = @participation.tournament
     if @payment.save
       @participation.payment_id = @payment.id
       @participation.save
+      if @tournament.available_places.positive? && @payment.status == "approved"
+        @participation.status = "pagado"
+        @participation.save
+        @tournament.available_places -= 1
+        @tournament.save
+        p @tournament
+      else
+        flash.alert = "Lo siento, no quedan cupos en este torneo."
+        redirect_to tournament_path(@tournament.id)
+      end
       redirect_to payment_path(@payment.id)
     else
       redirect_to tournament_path(@tournament.id), alert: "Pago no procesado"
     end
+  end
+
+  private
+  def update_places
+    @participation.status = "pagado"
+    @participation.save
+    old_places = @tournament.available_places
+    @tournament.available_places = old_places - 1
+    @tournament.save
+    # @tournament.available_places +=1
+    @tournament.save
+    raise
   end
 end
