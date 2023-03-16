@@ -14,17 +14,24 @@ class PaymentsController < ApplicationController
 
   def show
     @payment = Payment.find(params[:id])
-    # @participation = @payment.participation
-    # @tournament = @participation.tournament
-    # if @tournament.available_places.positive? && @payment.status == "approved"
-    #   @tournament.available_places -= 1
-    #   @tournament.save
-    #   @participation.status = "pagado"
-    #   @participation.save
-    # else
-    #   flash.alert = "Lo siento, no quedan cupos en este torneo."
-    #   redirect_to tournament_path(@tournament.id)
-    # end
+    @participation = @payment.participation
+    @tournament = @participation.tournament
+    # torneo = @tournament
+    # old_places0 = @tournament.available_places
+    if @tournament.available_places.positive? && @payment.status == "approved"
+      # old_places1 = @tournament.available_places
+      @participation.status = "pagado"
+      # old_places2 = @tournament.available_places
+      @participation.save
+      # old_places = @tournament.available_places
+      # new_places = old_places
+      # @tournament.available_places = new_places
+      @tournament.available_places -= 1
+      @tournament.save
+    else
+      flash.alert = "Lo siento, no quedan cupos en este torneo."
+      redirect_to tournament_path(@tournament.id)
+    end
   end
 
   def process_payment
