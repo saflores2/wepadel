@@ -7,8 +7,8 @@
       </div>
       <div class="col">
         <%# <%= f.input :ubication_address, :label => "Dirección" %>
-        <%= f.input :ubication_address,
-                    input_html: {data: {address_autocomplete_target: "address"}},
+        <%= f.input :address,
+                    input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
                     wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
       </div>
     </div>
@@ -39,7 +39,7 @@
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">
             <p><strong>Champions League:</strong> Son 4 grupos con 4 parejas cada uno. Cada pareja juega 3 partidos y las 2 primeras parejas de cada grupo pasan a cuartos de final. Este torneo asegura un mínimo de 3 partidos. Debe tener 16 cupos.</p>
-            <p><strong>Americano:</strong> La terminología “americano” se refiere a “todos contra todos”. Debe tener un número par de cupos para que todas las parejas jueguen al mismo tiempo.</p>
+            <p><strong>Americano:</strong> La terminología “americano” se refiere a “todos contra todos”. Debe tener un número par de cupos para que todas las parejas jueguen al mismo tiempo. Sola hay fixture si los cupos son menores o iguales a 8.</p>
             <p><strong>Express:</strong> Se suelen hacer 2 grupos de 4 parejas y cada pareja juega 3 partidos. Las dos primeras de cada grupo, juegan semifinales y las otras 4 suelen jugar por el quinto puesto. Este formato asegura jugar 5 partidos. Debe tener 8 cupos.</p>
             <p><strong>Otro:</strong> Este tipo de torneo no incluye fixture.</p>
             <p></p>
@@ -80,7 +80,7 @@
           <%= f.input :places, :label => "Cupos disponibles", class:"form-control", placeholder:"Cupo disponible por pareja" %>
         </div>
         <div class="col">
-          <%= f.input :match_duration, :label => "Duración por Partido", class:"form-control", placeholder:"Duracion aproximada por partido eje: 1hr" %>
+          <%= f.input :match_duration, :label => "Duración por Partido", class:"form-control", placeholder:"Duracion aproximada por partido ej: 1 hora" %>
         </div>
       </div>
       <div class="row">
