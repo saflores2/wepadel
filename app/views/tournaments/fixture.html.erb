@@ -112,12 +112,12 @@
                   <%= form_with url: match_games_path(m.id), method: :post do |f| %>
                     <p style="color: white; text-align: center;"><%= "#{team_names[user_team1.email]}" %></p>
                     <% if current_user == @tournament.user %>
-                      <p class="d-flex justify-content-center"><%= f.number_field :games_first_team, class:"text-center", style: "width: 50px" %></p>
+                      <p class="d-flex justify-content-center"><%= f.number_field :games_first_team, class:"text-center", style: "width: 70px; overflow-x: hidden;" %></p>
                     <% end %>
                     <p style="color: white; text-align: center;">VS</p>
                     <p style="color: white; text-align: center;"><%= "#{team_names[user_team2.email]}" %></p>
                     <% if current_user == @tournament.user %>
-                      <p class="d-flex justify-content-center pb-2"><%= f.number_field :games_second_team, class:"text-center", style: "width: 50px" %></p>
+                      <p class="d-flex justify-content-center pb-2"><%= f.number_field :games_second_team, class:"text-center", style: "width: 70px" %></p>
                       <%= f.submit "Ingresar puntaje de set", class: "btn btn-primary", style: "background-color: #C6E3CC; color: black;" %>
                     <% end  %>
                   <% end %>
