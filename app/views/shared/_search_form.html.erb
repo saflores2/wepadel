@@ -1,26 +1,26 @@
-<div class="container">
+<div class="container form-container">
   <div class="form_style">
     <%= form_with url: tournaments_path, method: :get, class: "d-flex mt-2", required: false do |f| %>
       <div class="row mx-auto">
        <div class="col-sm-6 col-md-4 col-lg-2">
-         <%= f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true, size: 3 } %>
+         <%= f.select :category, options_for_select(@categories), {prompt: 'Categoría', :multiple => true, size: 3 }, class: "form-control custom-select" %>
        </div>
        <div class="col-sm-6 col-md-4 col-lg-2">
-         <%= f.select :type, options_for_select(@types), {prompt: 'Tipo de torneo', :multiple => true, size: 3 } %>
+         <%= f.select :type, options_for_select(@types), {prompt: 'Tipo de torneo', :multiple => true, size: 3 }, class: "form-control custom-select" %>
        </div>
        <div class="col-sm-6 col-md-4 col-lg-2">
-          <%= f.number_field :max_price, placeholder: 'Precio máximo' %>
+          <%= f.number_field :max_price, placeholder: 'Precio màx', class: "form-control custom-select", onClick:'document.querySelector("#max_price").classList.toggle("border border-success")' %>
        </div>
        <div class="col-sm-6 col-md-4 col-lg-2">
-        <%# <input type="text" class="form-control" placeholder="Inicio" onfocus="(this.type='date')"/> %>
+        <%# <input type="text" class="form-control" placeholder="Inicio" onfocus="(this.type='date')"/>, class: "form-control custom-select", onClick:'document.querySelector("#max_price").classList.toggle("border border-success")' %>
         <%= f.date_field :start_date %>
        </div>
        <div class="col-sm-6 col-md-4 col-lg-2">
-        <%# <input type="text" class="form-control" placeholder="Fin" onfocus="(this.type='date')"/> %>
+        <%# <input type="text" class="form-control" placeholder="Fin" onfocus="(this.type='date')"/>, class: "form-control custom-select", onClick:'document.querySelector("#max_price").classList.toggle("border border-success")' %>
         <%= f.date_field :end_date %>
       </div>
        <div class="col-sm-6 col-md-4 col-lg-2">
-       <%= f.submit "Buscar", class: "btn btn-primary", style: "background-color: #184A22; font-family: Changa;" %>
+       <%= f.submit "Buscar", class: "btn btn-primary", style: "background-color: #184A22; font-family: Changa;", class: "form-control custom-select", onClick:'document.querySelector("#max_price").classList.toggle("border border-success")' %>
        </div>
      </div>
     </div>
