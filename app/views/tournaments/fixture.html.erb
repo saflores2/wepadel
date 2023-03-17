@@ -150,7 +150,7 @@
                     <p style="color: white; text-align: center;"><%= "#{team_names[user_team2.email]}" %></p>
                   <% else  %>
                     <p style="color: white; text-align: center;"><%= "#{team_names[user_team1.email]}" %></p>
-                    <p>vs</p>
+                    <p style="color: white; text-align: center;">VS</p>
                     <p class= "border text-center" style= "background-color: #C6E3CC; color: black;"><%= "#{team_names[user_team2.email]}" %></p>
                   <% end %>
                   <% sets = Game.where(match_id: m.id) %>
