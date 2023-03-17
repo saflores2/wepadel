@@ -4,4 +4,5 @@ class Room < ApplicationRecord
   # cuando se crea un nuevo room se actualizan los rooms automaticamente
   after_create_commit { broadcast_append_to "rooms" }
   has_many :messages
+  
 end

@@ -1,5 +1,5 @@
 <div class="container shadow bg-white mb-4 mt-4">
-  <div class="row mt-4 mb-4">
+  <dv class="row mt-4 mb-4">
       <h1 class="titulo" style="margin-top: 0px;">Publica tu torneo</h1>
 
     <%= simple_form_for(@tournament) do |f| %>
@@ -10,7 +10,7 @@
 
         <div class="col-md-6 mx-auto">
           <%= f.input :address, :label => "Dirección",
-            input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
+             input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
             wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
         </div>
       </div>
