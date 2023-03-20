@@ -46,7 +46,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new
     @payment.status = resultado["status"]
     @payment.status_detail = resultado["status_detail"]
-    @payment.mp_id = resultado["id"]
+    # @payment.mp_id = resultado["id"]
     @participation = Participation.find(session[:participation_id])
     @tournament = @participation.tournament
     if @payment.save
