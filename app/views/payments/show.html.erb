@@ -3,7 +3,7 @@
 
   <div id="statusScreenBrick_container"></div>
   <script>
-      const mp = new MercadoPago(ENV['MP_ENV'], {
+      const mp = new MercadoPago(ENV['MP_PUBLIC'], {
           locale: 'en-US'
       });
       const bricksBuilder = mp.bricks();
